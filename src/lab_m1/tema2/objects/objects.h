@@ -15,7 +15,7 @@ namespace objects
     const glm::vec3 treeLeavesColor = glm::vec3(0.016, 0.631, 0.004);
     const glm::vec3 treeTrunkColor = glm::vec3(0.388, 0.259, 0);
     const glm::vec3 droneBaseColor = glm::vec3(0.776, 0.776, 0.776);
-    const glm::vec3 dronePropellerColor = glm::vec3(1, 1, 1);
+    const glm::vec3 dronePropellerColor = glm::vec3(0, 0, 0);
 
     class Object : public gfxc::SimpleScene
     {
@@ -35,6 +35,22 @@ namespace objects
             ~Cube() override;
 
             void CreateCube(const char *name, const glm::vec3 &corner, float length, const glm::vec3 &color);
+    };
+
+    class Cylinder : public Object {
+        public:
+            Cylinder();
+            ~Cylinder() override;
+
+            void CreateCylinder(const char *name, const glm::vec3 &corner, float length, const glm::vec3 &color);
+    };
+
+    class Cone : public Object {
+        public:
+            Cone();
+            ~Cone() override;
+
+            void CreateCone(const char *name, const glm::vec3 &corner, float length, const glm::vec3 &color);
     };
 }
 
