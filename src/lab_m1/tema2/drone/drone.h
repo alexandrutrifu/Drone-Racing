@@ -17,6 +17,8 @@ using namespace std;
 #define PROPELLER_SPEED 10.0f
 #define LIMB_LENGTH 2.0f
 #define END_CUBE_LENGTH 0.08f
+#define DRONE_SPEED 3.0f
+#define DRONE_ROTATION_SPEED 5.0f
 
 namespace drones
 {
@@ -35,6 +37,7 @@ namespace drones
 
             glm::vec3 position = glm::vec3(0, 1, 0);
             float propellerAngle = 0;
+            float droneAngle = 0;
     };
 }
 
