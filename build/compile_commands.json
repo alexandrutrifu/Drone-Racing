@@ -1,0 +1,182 @@
+[
+{
+  "directory": "/Users/alex/facultate/anul3/egc/gfx-framework/build",
+  "command": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 -DDEBUG -DGLM_FORCE_SILENT_WARNINGS -DLIBGFXC_EXPORTS -DSOLVED -DWITH_LAB_M1 -D_CRT_SECURE_NO_WARNINGS -I/Users/alex/facultate/anul3/egc/gfx-framework/deps/api -I/Users/alex/facultate/anul3/egc/gfx-framework/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fPIE -Wall -Wextra -pedantic -Wno-error -Wno-unused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wno-missing-field-initializers -Wno-sign-compare -o CMakeFiles/GFXFramework.dir/src/components/camera_input.cpp.o -c /Users/alex/facultate/anul3/egc/gfx-framework/src/components/camera_input.cpp",
+  "file": "/Users/alex/facultate/anul3/egc/gfx-framework/src/components/camera_input.cpp",
+  "output": "CMakeFiles/GFXFramework.dir/src/components/camera_input.cpp.o"
+},
+{
+  "directory": "/Users/alex/facultate/anul3/egc/gfx-framework/build",
+  "command": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 -DDEBUG -DGLM_FORCE_SILENT_WARNINGS -DLIBGFXC_EXPORTS -DSOLVED -DWITH_LAB_M1 -D_CRT_SECURE_NO_WARNINGS -I/Users/alex/facultate/anul3/egc/gfx-framework/deps/api -I/Users/alex/facultate/anul3/egc/gfx-framework/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fPIE -Wall -Wextra -pedantic -Wno-error -Wno-unused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wno-missing-field-initializers -Wno-sign-compare -o CMakeFiles/GFXFramework.dir/src/components/scene_input.cpp.o -c /Users/alex/facultate/anul3/egc/gfx-framework/src/components/scene_input.cpp",
+  "file": "/Users/alex/facultate/anul3/egc/gfx-framework/src/components/scene_input.cpp",
+  "output": "CMakeFiles/GFXFramework.dir/src/components/scene_input.cpp.o"
+},
+{
+  "directory": "/Users/alex/facultate/anul3/egc/gfx-framework/build",
+  "command": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 -DDEBUG -DGLM_FORCE_SILENT_WARNINGS -DLIBGFXC_EXPORTS -DSOLVED -DWITH_LAB_M1 -D_CRT_SECURE_NO_WARNINGS -I/Users/alex/facultate/anul3/egc/gfx-framework/deps/api -I/Users/alex/facultate/anul3/egc/gfx-framework/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fPIE -Wall -Wextra -pedantic -Wno-error -Wno-unused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wno-missing-field-initializers -Wno-sign-compare -o CMakeFiles/GFXFramework.dir/src/components/simple_scene.cpp.o -c /Users/alex/facultate/anul3/egc/gfx-framework/src/components/simple_scene.cpp",
+  "file": "/Users/alex/facultate/anul3/egc/gfx-framework/src/components/simple_scene.cpp",
+  "output": "CMakeFiles/GFXFramework.dir/src/components/simple_scene.cpp.o"
+},
+{
+  "directory": "/Users/alex/facultate/anul3/egc/gfx-framework/build",
+  "command": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 -DDEBUG -DGLM_FORCE_SILENT_WARNINGS -DLIBGFXC_EXPORTS -DSOLVED -DWITH_LAB_M1 -D_CRT_SECURE_NO_WARNINGS -I/Users/alex/facultate/anul3/egc/gfx-framework/deps/api -I/Users/alex/facultate/anul3/egc/gfx-framework/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fPIE -Wall -Wextra -pedantic -Wno-error -Wno-unused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wno-missing-field-initializers -Wno-sign-compare -o CMakeFiles/GFXFramework.dir/src/components/text_renderer.cpp.o -c /Users/alex/facultate/anul3/egc/gfx-framework/src/components/text_renderer.cpp",
+  "file": "/Users/alex/facultate/anul3/egc/gfx-framework/src/components/text_renderer.cpp",
+  "output": "CMakeFiles/GFXFramework.dir/src/components/text_renderer.cpp.o"
+},
+{
+  "directory": "/Users/alex/facultate/anul3/egc/gfx-framework/build",
+  "command": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 -DDEBUG -DGLM_FORCE_SILENT_WARNINGS -DLIBGFXC_EXPORTS -DSOLVED -DWITH_LAB_M1 -D_CRT_SECURE_NO_WARNINGS -I/Users/alex/facultate/anul3/egc/gfx-framework/deps/api -I/Users/alex/facultate/anul3/egc/gfx-framework/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fPIE -Wall -Wextra -pedantic -Wno-error -Wno-unused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wno-missing-field-initializers -Wno-sign-compare -o CMakeFiles/GFXFramework.dir/src/core/engine.cpp.o -c /Users/alex/facultate/anul3/egc/gfx-framework/src/core/engine.cpp",
+  "file": "/Users/alex/facultate/anul3/egc/gfx-framework/src/core/engine.cpp",
+  "output": "CMakeFiles/GFXFramework.dir/src/core/engine.cpp.o"
+},
+{
+  "directory": "/Users/alex/facultate/anul3/egc/gfx-framework/build",
+  "command": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 -DDEBUG -DGLM_FORCE_SILENT_WARNINGS -DLIBGFXC_EXPORTS -DSOLVED -DWITH_LAB_M1 -D_CRT_SECURE_NO_WARNINGS -I/Users/alex/facultate/anul3/egc/gfx-framework/deps/api -I/Users/alex/facultate/anul3/egc/gfx-framework/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fPIE -Wall -Wextra -pedantic -Wno-error -Wno-unused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wno-missing-field-initializers -Wno-sign-compare -o CMakeFiles/GFXFramework.dir/src/core/gpu/frame_buffer.cpp.o -c /Users/alex/facultate/anul3/egc/gfx-framework/src/core/gpu/frame_buffer.cpp",
+  "file": "/Users/alex/facultate/anul3/egc/gfx-framework/src/core/gpu/frame_buffer.cpp",
+  "output": "CMakeFiles/GFXFramework.dir/src/core/gpu/frame_buffer.cpp.o"
+},
+{
+  "directory": "/Users/alex/facultate/anul3/egc/gfx-framework/build",
+  "command": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 -DDEBUG -DGLM_FORCE_SILENT_WARNINGS -DLIBGFXC_EXPORTS -DSOLVED -DWITH_LAB_M1 -D_CRT_SECURE_NO_WARNINGS -I/Users/alex/facultate/anul3/egc/gfx-framework/deps/api -I/Users/alex/facultate/anul3/egc/gfx-framework/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fPIE -Wall -Wextra -pedantic -Wno-error -Wno-unused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wno-missing-field-initializers -Wno-sign-compare -o CMakeFiles/GFXFramework.dir/src/core/gpu/gpu_buffers.cpp.o -c /Users/alex/facultate/anul3/egc/gfx-framework/src/core/gpu/gpu_buffers.cpp",
+  "file": "/Users/alex/facultate/anul3/egc/gfx-framework/src/core/gpu/gpu_buffers.cpp",
+  "output": "CMakeFiles/GFXFramework.dir/src/core/gpu/gpu_buffers.cpp.o"
+},
+{
+  "directory": "/Users/alex/facultate/anul3/egc/gfx-framework/build",
+  "command": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 -DDEBUG -DGLM_FORCE_SILENT_WARNINGS -DLIBGFXC_EXPORTS -DSOLVED -DWITH_LAB_M1 -D_CRT_SECURE_NO_WARNINGS -I/Users/alex/facultate/anul3/egc/gfx-framework/deps/api -I/Users/alex/facultate/anul3/egc/gfx-framework/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fPIE -Wall -Wextra -pedantic -Wno-error -Wno-unused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wno-missing-field-initializers -Wno-sign-compare -o CMakeFiles/GFXFramework.dir/src/core/gpu/mesh.cpp.o -c /Users/alex/facultate/anul3/egc/gfx-framework/src/core/gpu/mesh.cpp",
+  "file": "/Users/alex/facultate/anul3/egc/gfx-framework/src/core/gpu/mesh.cpp",
+  "output": "CMakeFiles/GFXFramework.dir/src/core/gpu/mesh.cpp.o"
+},
+{
+  "directory": "/Users/alex/facultate/anul3/egc/gfx-framework/build",
+  "command": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 -DDEBUG -DGLM_FORCE_SILENT_WARNINGS -DLIBGFXC_EXPORTS -DSOLVED -DWITH_LAB_M1 -D_CRT_SECURE_NO_WARNINGS -I/Users/alex/facultate/anul3/egc/gfx-framework/deps/api -I/Users/alex/facultate/anul3/egc/gfx-framework/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fPIE -Wall -Wextra -pedantic -Wno-error -Wno-unused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wno-missing-field-initializers -Wno-sign-compare -o CMakeFiles/GFXFramework.dir/src/core/gpu/shader.cpp.o -c /Users/alex/facultate/anul3/egc/gfx-framework/src/core/gpu/shader.cpp",
+  "file": "/Users/alex/facultate/anul3/egc/gfx-framework/src/core/gpu/shader.cpp",
+  "output": "CMakeFiles/GFXFramework.dir/src/core/gpu/shader.cpp.o"
+},
+{
+  "directory": "/Users/alex/facultate/anul3/egc/gfx-framework/build",
+  "command": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 -DDEBUG -DGLM_FORCE_SILENT_WARNINGS -DLIBGFXC_EXPORTS -DSOLVED -DWITH_LAB_M1 -D_CRT_SECURE_NO_WARNINGS -I/Users/alex/facultate/anul3/egc/gfx-framework/deps/api -I/Users/alex/facultate/anul3/egc/gfx-framework/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fPIE -Wall -Wextra -pedantic -Wno-error -Wno-unused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wno-missing-field-initializers -Wno-sign-compare -o CMakeFiles/GFXFramework.dir/src/core/gpu/texture2D.cpp.o -c /Users/alex/facultate/anul3/egc/gfx-framework/src/core/gpu/texture2D.cpp",
+  "file": "/Users/alex/facultate/anul3/egc/gfx-framework/src/core/gpu/texture2D.cpp",
+  "output": "CMakeFiles/GFXFramework.dir/src/core/gpu/texture2D.cpp.o"
+},
+{
+  "directory": "/Users/alex/facultate/anul3/egc/gfx-framework/build",
+  "command": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 -DDEBUG -DGLM_FORCE_SILENT_WARNINGS -DLIBGFXC_EXPORTS -DSOLVED -DWITH_LAB_M1 -D_CRT_SECURE_NO_WARNINGS -I/Users/alex/facultate/anul3/egc/gfx-framework/deps/api -I/Users/alex/facultate/anul3/egc/gfx-framework/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fPIE -Wall -Wextra -pedantic -Wno-error -Wno-unused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wno-missing-field-initializers -Wno-sign-compare -o CMakeFiles/GFXFramework.dir/src/core/managers/texture_manager.cpp.o -c /Users/alex/facultate/anul3/egc/gfx-framework/src/core/managers/texture_manager.cpp",
+  "file": "/Users/alex/facultate/anul3/egc/gfx-framework/src/core/managers/texture_manager.cpp",
+  "output": "CMakeFiles/GFXFramework.dir/src/core/managers/texture_manager.cpp.o"
+},
+{
+  "directory": "/Users/alex/facultate/anul3/egc/gfx-framework/build",
+  "command": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 -DDEBUG -DGLM_FORCE_SILENT_WARNINGS -DLIBGFXC_EXPORTS -DSOLVED -DWITH_LAB_M1 -D_CRT_SECURE_NO_WARNINGS -I/Users/alex/facultate/anul3/egc/gfx-framework/deps/api -I/Users/alex/facultate/anul3/egc/gfx-framework/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fPIE -Wall -Wextra -pedantic -Wno-error -Wno-unused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wno-missing-field-initializers -Wno-sign-compare -o CMakeFiles/GFXFramework.dir/src/core/window/input_controller.cpp.o -c /Users/alex/facultate/anul3/egc/gfx-framework/src/core/window/input_controller.cpp",
+  "file": "/Users/alex/facultate/anul3/egc/gfx-framework/src/core/window/input_controller.cpp",
+  "output": "CMakeFiles/GFXFramework.dir/src/core/window/input_controller.cpp.o"
+},
+{
+  "directory": "/Users/alex/facultate/anul3/egc/gfx-framework/build",
+  "command": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 -DDEBUG -DGLM_FORCE_SILENT_WARNINGS -DLIBGFXC_EXPORTS -DSOLVED -DWITH_LAB_M1 -D_CRT_SECURE_NO_WARNINGS -I/Users/alex/facultate/anul3/egc/gfx-framework/deps/api -I/Users/alex/facultate/anul3/egc/gfx-framework/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fPIE -Wall -Wextra -pedantic -Wno-error -Wno-unused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wno-missing-field-initializers -Wno-sign-compare -o CMakeFiles/GFXFramework.dir/src/core/window/window_callbacks.cpp.o -c /Users/alex/facultate/anul3/egc/gfx-framework/src/core/window/window_callbacks.cpp",
+  "file": "/Users/alex/facultate/anul3/egc/gfx-framework/src/core/window/window_callbacks.cpp",
+  "output": "CMakeFiles/GFXFramework.dir/src/core/window/window_callbacks.cpp.o"
+},
+{
+  "directory": "/Users/alex/facultate/anul3/egc/gfx-framework/build",
+  "command": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 -DDEBUG -DGLM_FORCE_SILENT_WARNINGS -DLIBGFXC_EXPORTS -DSOLVED -DWITH_LAB_M1 -D_CRT_SECURE_NO_WARNINGS -I/Users/alex/facultate/anul3/egc/gfx-framework/deps/api -I/Users/alex/facultate/anul3/egc/gfx-framework/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fPIE -Wall -Wextra -pedantic -Wno-error -Wno-unused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wno-missing-field-initializers -Wno-sign-compare -o CMakeFiles/GFXFramework.dir/src/core/window/window_object.cpp.o -c /Users/alex/facultate/anul3/egc/gfx-framework/src/core/window/window_object.cpp",
+  "file": "/Users/alex/facultate/anul3/egc/gfx-framework/src/core/window/window_object.cpp",
+  "output": "CMakeFiles/GFXFramework.dir/src/core/window/window_object.cpp.o"
+},
+{
+  "directory": "/Users/alex/facultate/anul3/egc/gfx-framework/build",
+  "command": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 -DDEBUG -DGLM_FORCE_SILENT_WARNINGS -DLIBGFXC_EXPORTS -DSOLVED -DWITH_LAB_M1 -D_CRT_SECURE_NO_WARNINGS -I/Users/alex/facultate/anul3/egc/gfx-framework/deps/api -I/Users/alex/facultate/anul3/egc/gfx-framework/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fPIE -Wall -Wextra -pedantic -Wno-error -Wno-unused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wno-missing-field-initializers -Wno-sign-compare -o CMakeFiles/GFXFramework.dir/src/core/world.cpp.o -c /Users/alex/facultate/anul3/egc/gfx-framework/src/core/world.cpp",
+  "file": "/Users/alex/facultate/anul3/egc/gfx-framework/src/core/world.cpp",
+  "output": "CMakeFiles/GFXFramework.dir/src/core/world.cpp.o"
+},
+{
+  "directory": "/Users/alex/facultate/anul3/egc/gfx-framework/build",
+  "command": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 -DDEBUG -DGLM_FORCE_SILENT_WARNINGS -DLIBGFXC_EXPORTS -DSOLVED -DWITH_LAB_M1 -D_CRT_SECURE_NO_WARNINGS -I/Users/alex/facultate/anul3/egc/gfx-framework/deps/api -I/Users/alex/facultate/anul3/egc/gfx-framework/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fPIE -Wall -Wextra -pedantic -Wno-error -Wno-unused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wno-missing-field-initializers -Wno-sign-compare -o CMakeFiles/GFXFramework.dir/src/lab_m1/lab1/lab1.cpp.o -c /Users/alex/facultate/anul3/egc/gfx-framework/src/lab_m1/lab1/lab1.cpp",
+  "file": "/Users/alex/facultate/anul3/egc/gfx-framework/src/lab_m1/lab1/lab1.cpp",
+  "output": "CMakeFiles/GFXFramework.dir/src/lab_m1/lab1/lab1.cpp.o"
+},
+{
+  "directory": "/Users/alex/facultate/anul3/egc/gfx-framework/build",
+  "command": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 -DDEBUG -DGLM_FORCE_SILENT_WARNINGS -DLIBGFXC_EXPORTS -DSOLVED -DWITH_LAB_M1 -D_CRT_SECURE_NO_WARNINGS -I/Users/alex/facultate/anul3/egc/gfx-framework/deps/api -I/Users/alex/facultate/anul3/egc/gfx-framework/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fPIE -Wall -Wextra -pedantic -Wno-error -Wno-unused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wno-missing-field-initializers -Wno-sign-compare -o CMakeFiles/GFXFramework.dir/src/lab_m1/lab2/lab2.cpp.o -c /Users/alex/facultate/anul3/egc/gfx-framework/src/lab_m1/lab2/lab2.cpp",
+  "file": "/Users/alex/facultate/anul3/egc/gfx-framework/src/lab_m1/lab2/lab2.cpp",
+  "output": "CMakeFiles/GFXFramework.dir/src/lab_m1/lab2/lab2.cpp.o"
+},
+{
+  "directory": "/Users/alex/facultate/anul3/egc/gfx-framework/build",
+  "command": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 -DDEBUG -DGLM_FORCE_SILENT_WARNINGS -DLIBGFXC_EXPORTS -DSOLVED -DWITH_LAB_M1 -D_CRT_SECURE_NO_WARNINGS -I/Users/alex/facultate/anul3/egc/gfx-framework/deps/api -I/Users/alex/facultate/anul3/egc/gfx-framework/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fPIE -Wall -Wextra -pedantic -Wno-error -Wno-unused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wno-missing-field-initializers -Wno-sign-compare -o CMakeFiles/GFXFramework.dir/src/lab_m1/lab3/lab3.cpp.o -c /Users/alex/facultate/anul3/egc/gfx-framework/src/lab_m1/lab3/lab3.cpp",
+  "file": "/Users/alex/facultate/anul3/egc/gfx-framework/src/lab_m1/lab3/lab3.cpp",
+  "output": "CMakeFiles/GFXFramework.dir/src/lab_m1/lab3/lab3.cpp.o"
+},
+{
+  "directory": "/Users/alex/facultate/anul3/egc/gfx-framework/build",
+  "command": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 -DDEBUG -DGLM_FORCE_SILENT_WARNINGS -DLIBGFXC_EXPORTS -DSOLVED -DWITH_LAB_M1 -D_CRT_SECURE_NO_WARNINGS -I/Users/alex/facultate/anul3/egc/gfx-framework/deps/api -I/Users/alex/facultate/anul3/egc/gfx-framework/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fPIE -Wall -Wextra -pedantic -Wno-error -Wno-unused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wno-missing-field-initializers -Wno-sign-compare -o CMakeFiles/GFXFramework.dir/src/lab_m1/lab3/lab3_vis2D.cpp.o -c /Users/alex/facultate/anul3/egc/gfx-framework/src/lab_m1/lab3/lab3_vis2D.cpp",
+  "file": "/Users/alex/facultate/anul3/egc/gfx-framework/src/lab_m1/lab3/lab3_vis2D.cpp",
+  "output": "CMakeFiles/GFXFramework.dir/src/lab_m1/lab3/lab3_vis2D.cpp.o"
+},
+{
+  "directory": "/Users/alex/facultate/anul3/egc/gfx-framework/build",
+  "command": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 -DDEBUG -DGLM_FORCE_SILENT_WARNINGS -DLIBGFXC_EXPORTS -DSOLVED -DWITH_LAB_M1 -D_CRT_SECURE_NO_WARNINGS -I/Users/alex/facultate/anul3/egc/gfx-framework/deps/api -I/Users/alex/facultate/anul3/egc/gfx-framework/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fPIE -Wall -Wextra -pedantic -Wno-error -Wno-unused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wno-missing-field-initializers -Wno-sign-compare -o CMakeFiles/GFXFramework.dir/src/lab_m1/lab3/object2D.cpp.o -c /Users/alex/facultate/anul3/egc/gfx-framework/src/lab_m1/lab3/object2D.cpp",
+  "file": "/Users/alex/facultate/anul3/egc/gfx-framework/src/lab_m1/lab3/object2D.cpp",
+  "output": "CMakeFiles/GFXFramework.dir/src/lab_m1/lab3/object2D.cpp.o"
+},
+{
+  "directory": "/Users/alex/facultate/anul3/egc/gfx-framework/build",
+  "command": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 -DDEBUG -DGLM_FORCE_SILENT_WARNINGS -DLIBGFXC_EXPORTS -DSOLVED -DWITH_LAB_M1 -D_CRT_SECURE_NO_WARNINGS -I/Users/alex/facultate/anul3/egc/gfx-framework/deps/api -I/Users/alex/facultate/anul3/egc/gfx-framework/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fPIE -Wall -Wextra -pedantic -Wno-error -Wno-unused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wno-missing-field-initializers -Wno-sign-compare -o CMakeFiles/GFXFramework.dir/src/lab_m1/lab4/lab4.cpp.o -c /Users/alex/facultate/anul3/egc/gfx-framework/src/lab_m1/lab4/lab4.cpp",
+  "file": "/Users/alex/facultate/anul3/egc/gfx-framework/src/lab_m1/lab4/lab4.cpp",
+  "output": "CMakeFiles/GFXFramework.dir/src/lab_m1/lab4/lab4.cpp.o"
+},
+{
+  "directory": "/Users/alex/facultate/anul3/egc/gfx-framework/build",
+  "command": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 -DDEBUG -DGLM_FORCE_SILENT_WARNINGS -DLIBGFXC_EXPORTS -DSOLVED -DWITH_LAB_M1 -D_CRT_SECURE_NO_WARNINGS -I/Users/alex/facultate/anul3/egc/gfx-framework/deps/api -I/Users/alex/facultate/anul3/egc/gfx-framework/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fPIE -Wall -Wextra -pedantic -Wno-error -Wno-unused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wno-missing-field-initializers -Wno-sign-compare -o CMakeFiles/GFXFramework.dir/src/lab_m1/lab5/lab5.cpp.o -c /Users/alex/facultate/anul3/egc/gfx-framework/src/lab_m1/lab5/lab5.cpp",
+  "file": "/Users/alex/facultate/anul3/egc/gfx-framework/src/lab_m1/lab5/lab5.cpp",
+  "output": "CMakeFiles/GFXFramework.dir/src/lab_m1/lab5/lab5.cpp.o"
+},
+{
+  "directory": "/Users/alex/facultate/anul3/egc/gfx-framework/build",
+  "command": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 -DDEBUG -DGLM_FORCE_SILENT_WARNINGS -DLIBGFXC_EXPORTS -DSOLVED -DWITH_LAB_M1 -D_CRT_SECURE_NO_WARNINGS -I/Users/alex/facultate/anul3/egc/gfx-framework/deps/api -I/Users/alex/facultate/anul3/egc/gfx-framework/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fPIE -Wall -Wextra -pedantic -Wno-error -Wno-unused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wno-missing-field-initializers -Wno-sign-compare -o CMakeFiles/GFXFramework.dir/src/lab_m1/lab6/lab6.cpp.o -c /Users/alex/facultate/anul3/egc/gfx-framework/src/lab_m1/lab6/lab6.cpp",
+  "file": "/Users/alex/facultate/anul3/egc/gfx-framework/src/lab_m1/lab6/lab6.cpp",
+  "output": "CMakeFiles/GFXFramework.dir/src/lab_m1/lab6/lab6.cpp.o"
+},
+{
+  "directory": "/Users/alex/facultate/anul3/egc/gfx-framework/build",
+  "command": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 -DDEBUG -DGLM_FORCE_SILENT_WARNINGS -DLIBGFXC_EXPORTS -DSOLVED -DWITH_LAB_M1 -D_CRT_SECURE_NO_WARNINGS -I/Users/alex/facultate/anul3/egc/gfx-framework/deps/api -I/Users/alex/facultate/anul3/egc/gfx-framework/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fPIE -Wall -Wextra -pedantic -Wno-error -Wno-unused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wno-missing-field-initializers -Wno-sign-compare -o CMakeFiles/GFXFramework.dir/src/lab_m1/lab7/lab7.cpp.o -c /Users/alex/facultate/anul3/egc/gfx-framework/src/lab_m1/lab7/lab7.cpp",
+  "file": "/Users/alex/facultate/anul3/egc/gfx-framework/src/lab_m1/lab7/lab7.cpp",
+  "output": "CMakeFiles/GFXFramework.dir/src/lab_m1/lab7/lab7.cpp.o"
+},
+{
+  "directory": "/Users/alex/facultate/anul3/egc/gfx-framework/build",
+  "command": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 -DDEBUG -DGLM_FORCE_SILENT_WARNINGS -DLIBGFXC_EXPORTS -DSOLVED -DWITH_LAB_M1 -D_CRT_SECURE_NO_WARNINGS -I/Users/alex/facultate/anul3/egc/gfx-framework/deps/api -I/Users/alex/facultate/anul3/egc/gfx-framework/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fPIE -Wall -Wextra -pedantic -Wno-error -Wno-unused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wno-missing-field-initializers -Wno-sign-compare -o CMakeFiles/GFXFramework.dir/src/lab_m1/lab8/lab8.cpp.o -c /Users/alex/facultate/anul3/egc/gfx-framework/src/lab_m1/lab8/lab8.cpp",
+  "file": "/Users/alex/facultate/anul3/egc/gfx-framework/src/lab_m1/lab8/lab8.cpp",
+  "output": "CMakeFiles/GFXFramework.dir/src/lab_m1/lab8/lab8.cpp.o"
+},
+{
+  "directory": "/Users/alex/facultate/anul3/egc/gfx-framework/build",
+  "command": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 -DDEBUG -DGLM_FORCE_SILENT_WARNINGS -DLIBGFXC_EXPORTS -DSOLVED -DWITH_LAB_M1 -D_CRT_SECURE_NO_WARNINGS -I/Users/alex/facultate/anul3/egc/gfx-framework/deps/api -I/Users/alex/facultate/anul3/egc/gfx-framework/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fPIE -Wall -Wextra -pedantic -Wno-error -Wno-unused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wno-missing-field-initializers -Wno-sign-compare -o CMakeFiles/GFXFramework.dir/src/lab_m1/lab9/lab9.cpp.o -c /Users/alex/facultate/anul3/egc/gfx-framework/src/lab_m1/lab9/lab9.cpp",
+  "file": "/Users/alex/facultate/anul3/egc/gfx-framework/src/lab_m1/lab9/lab9.cpp",
+  "output": "CMakeFiles/GFXFramework.dir/src/lab_m1/lab9/lab9.cpp.o"
+},
+{
+  "directory": "/Users/alex/facultate/anul3/egc/gfx-framework/build",
+  "command": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 -DDEBUG -DGLM_FORCE_SILENT_WARNINGS -DLIBGFXC_EXPORTS -DSOLVED -DWITH_LAB_M1 -D_CRT_SECURE_NO_WARNINGS -I/Users/alex/facultate/anul3/egc/gfx-framework/deps/api -I/Users/alex/facultate/anul3/egc/gfx-framework/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fPIE -Wall -Wextra -pedantic -Wno-error -Wno-unused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wno-missing-field-initializers -Wno-sign-compare -o CMakeFiles/GFXFramework.dir/src/lab_m1/tema1.cpp.o -c /Users/alex/facultate/anul3/egc/gfx-framework/src/lab_m1/tema1.cpp",
+  "file": "/Users/alex/facultate/anul3/egc/gfx-framework/src/lab_m1/tema1.cpp",
+  "output": "CMakeFiles/GFXFramework.dir/src/lab_m1/tema1.cpp.o"
+},
+{
+  "directory": "/Users/alex/facultate/anul3/egc/gfx-framework/build",
+  "command": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 -DDEBUG -DGLM_FORCE_SILENT_WARNINGS -DLIBGFXC_EXPORTS -DSOLVED -DWITH_LAB_M1 -D_CRT_SECURE_NO_WARNINGS -I/Users/alex/facultate/anul3/egc/gfx-framework/deps/api -I/Users/alex/facultate/anul3/egc/gfx-framework/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fPIE -Wall -Wextra -pedantic -Wno-error -Wno-unused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wno-missing-field-initializers -Wno-sign-compare -o CMakeFiles/GFXFramework.dir/src/main.cpp.o -c /Users/alex/facultate/anul3/egc/gfx-framework/src/main.cpp",
+  "file": "/Users/alex/facultate/anul3/egc/gfx-framework/src/main.cpp",
+  "output": "CMakeFiles/GFXFramework.dir/src/main.cpp.o"
+},
+{
+  "directory": "/Users/alex/facultate/anul3/egc/gfx-framework/build",
+  "command": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 -DDEBUG -DGLM_FORCE_SILENT_WARNINGS -DLIBGFXC_EXPORTS -DSOLVED -DWITH_LAB_M1 -D_CRT_SECURE_NO_WARNINGS -I/Users/alex/facultate/anul3/egc/gfx-framework/deps/api -I/Users/alex/facultate/anul3/egc/gfx-framework/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fPIE -Wall -Wextra -pedantic -Wno-error -Wno-unused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wno-missing-field-initializers -Wno-sign-compare -o CMakeFiles/GFXFramework.dir/src/utils/gl_utils.cpp.o -c /Users/alex/facultate/anul3/egc/gfx-framework/src/utils/gl_utils.cpp",
+  "file": "/Users/alex/facultate/anul3/egc/gfx-framework/src/utils/gl_utils.cpp",
+  "output": "CMakeFiles/GFXFramework.dir/src/utils/gl_utils.cpp.o"
+},
+{
+  "directory": "/Users/alex/facultate/anul3/egc/gfx-framework/build",
+  "command": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 -DDEBUG -DGLM_FORCE_SILENT_WARNINGS -DLIBGFXC_EXPORTS -DSOLVED -DWITH_LAB_M1 -D_CRT_SECURE_NO_WARNINGS -I/Users/alex/facultate/anul3/egc/gfx-framework/deps/api -I/Users/alex/facultate/anul3/egc/gfx-framework/src -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fPIE -Wall -Wextra -pedantic -Wno-error -Wno-unused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wno-missing-field-initializers -Wno-sign-compare -o CMakeFiles/GFXFramework.dir/src/utils/text_utils.cpp.o -c /Users/alex/facultate/anul3/egc/gfx-framework/src/utils/text_utils.cpp",
+  "file": "/Users/alex/facultate/anul3/egc/gfx-framework/src/utils/text_utils.cpp",
+  "output": "CMakeFiles/GFXFramework.dir/src/utils/text_utils.cpp.o"
+}
+]
