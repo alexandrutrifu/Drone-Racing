@@ -42,7 +42,9 @@ namespace objects
             Cylinder();
             ~Cylinder() override;
 
-            void CreateCylinder(const char *name, const glm::vec3 &corner, float length, const glm::vec3 &color);
+            void CreateCylinder(const char *name, const glm::vec3 &corner, float height, float radius, const glm::vec3 &color);
+
+            static const int numVertices = 72;
     };
 
     class Cone : public Object {
@@ -50,7 +52,7 @@ namespace objects
             Cone();
             ~Cone() override;
 
-            void CreateCone(const char *name, const glm::vec3 &corner, float length, const glm::vec3 &color);
+            void CreateCone(const char *name, const glm::vec3 &corner, float height, float radius, const glm::vec3 &color);
     };
 }
 
