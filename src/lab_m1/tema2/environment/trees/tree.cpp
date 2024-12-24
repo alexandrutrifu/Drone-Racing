@@ -74,14 +74,14 @@ void Tree::RenderTree(Shader *shader, camera::Camera *camera, const glm::mat4 &p
     }
 
     // Change bounding box position
-    this->boundingBox->xLimits.x = this->position.x - BIG_CONE_RADIUS * this->scaleFactor;
-    this->boundingBox->xLimits.y = this->position.x + BIG_CONE_RADIUS * this->scaleFactor;
+    this->boundingBox->xLimits.x = this->position.x - CONE_RADIUS * this->scaleFactor;
+    this->boundingBox->xLimits.y = this->position.x + CONE_RADIUS * this->scaleFactor;
 
     this->boundingBox->yLimits.x = this->position.y;
     this->boundingBox->yLimits.y = this->position.y + (TRUNK_HEIGHT + CONE_OFFSET.y + CONE_HEIGHT) * this->scaleFactor;
 
-    this->boundingBox->zLimits.x = this->position.z - BIG_CONE_RADIUS * this->scaleFactor;
-    this->boundingBox->zLimits.y = this->position.z + BIG_CONE_RADIUS * this->scaleFactor;
+    this->boundingBox->zLimits.x = this->position.z - CONE_RADIUS * this->scaleFactor;
+    this->boundingBox->zLimits.y = this->position.z + CONE_RADIUS * this->scaleFactor;
 }
 
 void trees::Tree::setPosition(const glm::vec3 &position)
@@ -120,13 +120,23 @@ vector<Tree *> trees::Tree::generateForest()
 
         tree->setPosition(glm::vec3(xPos, 0, zPos));
 
-        while (any_of(forest.begin(), forest.end(), [&](Tree *t) {
+        int attempts = 0;
+        int maxAttempts = 100;
+
+        while (attempts < maxAttempts && any_of(forest.begin(), forest.end(), [&](Tree *t) {
             return t->overlapsWith(tree->boundingBox);
         })) {
             xPos = rand() % (2 * limit) - limit;
             zPos = rand() % (2 * limit) - limit;
 
             tree->setPosition(glm::vec3(xPos, 0, zPos));
+
+            attempts++;
+        }
+
+        if (attempts == maxAttempts) {
+            cout << "Could not find a free spot for tree " << i << endl;
+            return forest;
         }
 
         // Print tree position
