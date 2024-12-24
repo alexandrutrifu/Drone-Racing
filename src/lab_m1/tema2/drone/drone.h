@@ -5,6 +5,7 @@
 
 #include <vector>
 #include <iostream>
+#include <algorithm>
 
 #include "components/simple_scene.h"
 #include "../objects/objects.h"

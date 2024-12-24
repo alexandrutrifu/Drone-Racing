@@ -245,8 +245,6 @@ void drones::Drone::RenderDrone(Shader *shader, camera::Camera *camera, const gl
 
 }
 
-#include <algorithm>
-
 bool drones::Drone::collidesWithObject(obstacles::BoundingBox *box)
 {
     BoundingSphere *sphere = this->boundingSphere;
