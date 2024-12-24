@@ -7,6 +7,8 @@ Terrain::~Terrain() = default;
 
 void Terrain::CreateTerrain(const char *name, const glm::vec3 &corner)
 {
+    float size = terrainSize;
+
     // Create a simple 4-vertex mesh
     vector<VertexFormat> vertices
     {

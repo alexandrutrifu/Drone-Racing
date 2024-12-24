@@ -40,16 +40,7 @@ void Tema2::Init()
 
     // Create the tree meshes
     {
-        for (int i = 1; i < 5; i++) {
-            trees::Tree *tree = new trees::Tree();
-
-            std::string treeName = "tree" + std::to_string(i);
-            tree->CreateTree(treeName.c_str(), corner, i * 0.5f);
-
-            tree->position = glm::vec3(i * 3, 0, 0);
-
-            trees.push_back(tree);
-        }
+        forest = trees::Tree::generateForest();
     }   
 
     // Create a shader program for drawing face polygon with the color of the normal
@@ -99,7 +90,7 @@ void Tema2::Update(float deltaTimeSeconds)
     drone->RenderDrone(shaders["LabShader"], camera, projectionMatrix);
 
     // Render trees
-    for (auto &tree : trees) {
+    for (auto &tree : forest) {
         tree->RenderTree(shaders["LabShader"], camera, projectionMatrix);
     }
     
@@ -184,7 +175,7 @@ void Tema2::OnInputUpdate(float deltaTime, int mods)
     } else {
         // Check for collisions
         int index = 1;
-        for (auto &tree : trees) {
+        for (auto &tree : forest) {
             if (drone->collidesWithObject(tree->boundingBox)) {
                 // Print sphere ends
                 cout << "Sphere ends: " << drone->boundingSphere->center.x - drone->boundingSphere->radius << " "
