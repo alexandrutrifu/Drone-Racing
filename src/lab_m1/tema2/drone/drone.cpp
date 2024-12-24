@@ -5,7 +5,7 @@ using namespace drones;
 Drone::Drone() = default;
 Drone::~Drone() = default;
 
-void drones::Drone::CreateDrone(const char *name, const std::vector<VertexFormat> &vertices, const std::vector<unsigned int> &indices)
+void drones::Drone::CreateDrone(const char *name, const glm::vec3 &corner, const float scaleFactor)
 {
     // Create the two limbs
     objects::Cube *limb1 = new objects::Cube();
@@ -48,6 +48,9 @@ void drones::Drone::CreateDrone(const char *name, const std::vector<VertexFormat
     this->propellers.push_back(propeller2);
     this->propellers.push_back(propeller3);
     this->propellers.push_back(propeller4);
+
+    // Set scale factor
+    this->scaleFactor = scaleFactor;
 }
 
 void drones::Drone::RenderDrone(Shader *shader, camera::Camera *camera, const glm::mat4 &projectionMatrix)
@@ -57,6 +60,7 @@ void drones::Drone::RenderDrone(Shader *shader, camera::Camera *camera, const gl
         glm::mat4 modelMatrix = glm::mat4(1);
         modelMatrix = glm::translate(modelMatrix, this->position);
         modelMatrix = glm::rotate(modelMatrix, this->droneAngle, glm::vec3(0, 1, 0));
+        modelMatrix = glm::scale(modelMatrix, glm::vec3(this->scaleFactor));
         modelMatrix = glm::scale(modelMatrix, glm::vec3(0.2f));
         modelMatrix = glm::scale(modelMatrix, glm::vec3(2, 0.2f, 0.2f));
         
@@ -67,6 +71,7 @@ void drones::Drone::RenderDrone(Shader *shader, camera::Camera *camera, const gl
         glm::mat4 modelMatrix = glm::mat4(1);
         modelMatrix = glm::translate(modelMatrix, this->position);
         modelMatrix = glm::rotate(modelMatrix, this->droneAngle, glm::vec3(0, 1, 0));
+        modelMatrix = glm::scale(modelMatrix, glm::vec3(this->scaleFactor));
         modelMatrix = glm::scale(modelMatrix, glm::vec3(0.2f));
         modelMatrix = glm::scale(modelMatrix, glm::vec3(0.2f, 0.2f, 2));
         
@@ -82,6 +87,9 @@ void drones::Drone::RenderDrone(Shader *shader, camera::Camera *camera, const gl
 
         // Rotate around the drone's center
         modelMatrix = glm::rotate(modelMatrix, this->droneAngle, glm::vec3(0, 1, 0));
+        
+        // Scale
+        modelMatrix = glm::scale(modelMatrix, glm::vec3(this->scaleFactor));
 
         // Translate to the end cube's relative offset
         glm::vec3 relativeOffset = glm::vec3(0, END_CUBE_LENGTH, -PROPELLER_OFFSET);
@@ -99,6 +107,9 @@ void drones::Drone::RenderDrone(Shader *shader, camera::Camera *camera, const gl
         // Rotate around the drone's center
         modelMatrix = glm::rotate(modelMatrix, this->droneAngle, glm::vec3(0, 1, 0));
 
+        // Scale
+        modelMatrix = glm::scale(modelMatrix, glm::vec3(this->scaleFactor));
+
         // Translate to the end cube's relative offset
         glm::vec3 relativeOffset = glm::vec3(0, END_CUBE_LENGTH, PROPELLER_OFFSET);
         modelMatrix = glm::translate(modelMatrix, relativeOffset);
@@ -114,6 +125,9 @@ void drones::Drone::RenderDrone(Shader *shader, camera::Camera *camera, const gl
 
         // Rotate around the drone's center
         modelMatrix = glm::rotate(modelMatrix, this->droneAngle, glm::vec3(0, 1, 0));
+
+        // Scale
+        modelMatrix = glm::scale(modelMatrix, glm::vec3(this->scaleFactor));
 
         // Translate to the end cube's relative offset
         glm::vec3 relativeOffset = glm::vec3(PROPELLER_OFFSET, END_CUBE_LENGTH, 0);
@@ -131,6 +145,9 @@ void drones::Drone::RenderDrone(Shader *shader, camera::Camera *camera, const gl
         // Rotate around the drone's center
         modelMatrix = glm::rotate(modelMatrix, this->droneAngle, glm::vec3(0, 1, 0));
 
+        // Scale
+        modelMatrix = glm::scale(modelMatrix, glm::vec3(this->scaleFactor));
+
         // Translate to the end cube's relative offset
         glm::vec3 relativeOffset = glm::vec3(-PROPELLER_OFFSET, END_CUBE_LENGTH, 0);
         modelMatrix = glm::translate(modelMatrix, relativeOffset);
@@ -145,6 +162,9 @@ void drones::Drone::RenderDrone(Shader *shader, camera::Camera *camera, const gl
         modelMatrix = glm::translate(modelMatrix, this->position);
 
         modelMatrix = glm::rotate(modelMatrix, this->droneAngle, glm::vec3(0, 1, 0));
+
+        // Scale
+        modelMatrix = glm::scale(modelMatrix, glm::vec3(this->scaleFactor));
 
         modelMatrix = glm::translate(modelMatrix, glm::vec3(0, PROPELLER_HEIGHT, -PROPELLER_OFFSET));
 
@@ -162,6 +182,9 @@ void drones::Drone::RenderDrone(Shader *shader, camera::Camera *camera, const gl
         modelMatrix = glm::translate(modelMatrix, this->position);
 
         modelMatrix = glm::rotate(modelMatrix, this->droneAngle, glm::vec3(0, 1, 0));
+
+        // Scale
+        modelMatrix = glm::scale(modelMatrix, glm::vec3(this->scaleFactor));
 
         modelMatrix = glm::translate(modelMatrix, glm::vec3(0, PROPELLER_HEIGHT, PROPELLER_OFFSET));
 
@@ -181,6 +204,9 @@ void drones::Drone::RenderDrone(Shader *shader, camera::Camera *camera, const gl
 
         modelMatrix = glm::rotate(modelMatrix, this->droneAngle, glm::vec3(0, 1, 0));
 
+        // Scale
+        modelMatrix = glm::scale(modelMatrix, glm::vec3(this->scaleFactor));
+
         modelMatrix = glm::translate(modelMatrix, glm::vec3(PROPELLER_OFFSET, PROPELLER_HEIGHT, 0));
 
         modelMatrix = glm::rotate(modelMatrix, this->propellerAngle, glm::vec3(0, 1, 0));
@@ -197,6 +223,9 @@ void drones::Drone::RenderDrone(Shader *shader, camera::Camera *camera, const gl
         modelMatrix = glm::translate(modelMatrix, this->position);
 
         modelMatrix = glm::rotate(modelMatrix, this->droneAngle, glm::vec3(0, 1, 0));
+
+        // Scale
+        modelMatrix = glm::scale(modelMatrix, glm::vec3(this->scaleFactor));
 
         modelMatrix = glm::translate(modelMatrix, glm::vec3(-PROPELLER_OFFSET, PROPELLER_HEIGHT, 0));
 

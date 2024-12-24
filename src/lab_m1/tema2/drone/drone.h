@@ -28,7 +28,7 @@ namespace drones
             Drone();
             ~Drone() override;
 
-            void CreateDrone(const char *name, const std::vector<VertexFormat> &vertices, const std::vector<unsigned int> &indices);
+            void CreateDrone(const char *name, const glm::vec3 &corner, const float scaleFactor);
             void RenderDrone(Shader *shader, camera::Camera *camera, const glm::mat4 &projectionMatrix);
 
             vector<objects::Cube *> limbs{};
@@ -38,6 +38,8 @@ namespace drones
             glm::vec3 position = glm::vec3(0, 1, 0);
             float propellerAngle = 0;
             float droneAngle = 0;
+
+            float scaleFactor = 1;
     };
 }
 
