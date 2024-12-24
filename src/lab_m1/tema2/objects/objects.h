@@ -12,8 +12,6 @@
 namespace objects
 {
     const glm::vec3 skyBlue = glm::vec3(0.612, 0.800, 0.925);
-    const glm::vec3 treeLeavesColor = glm::vec3(0.016, 0.631, 0.004);
-    const glm::vec3 treeTrunkColor = glm::vec3(0.388, 0.259, 0);
     const glm::vec3 droneBaseColor = glm::vec3(0.776, 0.776, 0.776);
     const glm::vec3 dronePropellerColor = glm::vec3(0, 0, 0);
 
