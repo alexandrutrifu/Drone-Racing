@@ -17,7 +17,7 @@ void Tema2::Init()
     camera->Set(glm::vec3(0, 2, 3.5f), glm::vec3(0, 1, 0), glm::vec3(0, 1, 0));
 
     // Left bottom corner
-    glm::vec3 corner = glm::vec3(0, -1, 0);
+    glm::vec3 corner = glm::vec3(0, 0, 0);
 
     {
         Mesh* mesh = new Mesh("box");
@@ -28,17 +28,24 @@ void Tema2::Init()
     // Create the drone meshes
     {
         drone = new drones::Drone();
+        drone->CreateDrone("drone", corner, 1);
 
-        drone->CreateDrone("drone", {}, {});
-
-        meshes["droneLimb1"] = drone->limbs[0]->mesh;
-        meshes["droneLimb2"] = drone->limbs[1]->mesh;
-
-        meshes["dronePropeller1"] = drone->propellers[0]->mesh;
-        meshes["dronePropeller2"] = drone->propellers[1]->mesh;
-        meshes["dronePropeller3"] = drone->propellers[2]->mesh;
-        meshes["dronePropeller4"] = drone->propellers[3]->mesh;
+        this->drone->position = corner;
     }
+
+    // Create the tree meshes
+    {
+        for (int i = 1; i < 5; i++) {
+            trees::Tree *tree = new trees::Tree();
+
+            std::string treeName = "tree" + std::to_string(i);
+            tree->CreateTree(treeName.c_str(), corner, i * 0.5f);
+
+            tree->position = glm::vec3(i * 3, 0, 0);
+
+            trees.push_back(tree);
+        }
+    }   
 
     // Create a shader program for drawing face polygon with the color of the normal
     {
@@ -80,16 +87,27 @@ void Tema2::Update(float deltaTimeSeconds)
     //     RenderMesh(meshes["sphere"], shaders["VertexNormal"], modelMatrix);
     // }
 
-    // glm::mat4 modelMatrix = glm::mat4(1);
-    // modelMatrix = glm::translate(modelMatrix, glm::vec3(0, 1, 0));
-    // modelMatrix = glm::scale(modelMatrix, glm::vec3(0.2f));
-    // modelMatrix = glm::scale(modelMatrix, glm::vec3(2, 0.2f, 0.2f));
-    
-    // drone->limbs[0]->RenderObject(shaders["LabShader"], modelMatrix, camera, projectionMatrix);
-
     // Render drone
     drone->RenderDrone(shaders["LabShader"], camera, projectionMatrix);
+
+    // PRINT DRONE POSITION
+    // Print sphere ends
+                cout << "Sphere center " << drone->boundingSphere->center.x << " "
+                    << drone->boundingSphere->center.y << " "
+                    << drone->boundingSphere->center.z << endl;
+                cout << "Sphere ends: " << drone->boundingSphere->center.x - drone->boundingSphere->radius << " "
+                    << drone->boundingSphere->center.x + drone->boundingSphere->radius << " "
+                    << drone->boundingSphere->center.y - drone->boundingSphere->radius << " "
+                    << drone->boundingSphere->center.y + drone->boundingSphere->radius << " "
+                    << drone->boundingSphere->center.z - drone->boundingSphere->radius << " "
+                    << drone->boundingSphere->center.z + drone->boundingSphere->radius << endl;
+
+    // Render trees
+    for (auto &tree : trees) {
+        tree->RenderTree(shaders["LabShader"], camera, projectionMatrix);
+    }
     
+    drone->propellerAngle += PROPELLER_SPEED * deltaTimeSeconds;
 }
 
 
@@ -167,7 +185,68 @@ void Tema2::OnInputUpdate(float deltaTime, int mods)
             top -= cameraSpeed * deltaTime;
             projectionMatrix = glm::ortho(left, right, bottom, top, zNear, zFar);
         }
+    } else {
+        // Check for collisions
+        int index = 1;
+        for (auto &tree : trees) {
+            if (drone->collidesWithObject(tree->boundingBox)) {
+                // Print sphere ends
+                cout << "Sphere ends: " << drone->boundingSphere->center.x - drone->boundingSphere->radius << " "
+                    << drone->boundingSphere->center.x + drone->boundingSphere->radius << " "
+                    << drone->boundingSphere->center.y - drone->boundingSphere->radius << " "
+                    << drone->boundingSphere->center.y + drone->boundingSphere->radius << " "
+                    << drone->boundingSphere->center.z - drone->boundingSphere->radius << " "
+                    << drone->boundingSphere->center.z + drone->boundingSphere->radius << endl;
 
+                cout << "We hit tree " << index << endl;
+                cout << tree->boundingBox->xLimits.x << " " << tree->boundingBox->xLimits.y << endl;
+                cout << tree->boundingBox->yLimits.x << " " << tree->boundingBox->yLimits.y << endl;
+                cout << tree->boundingBox->zLimits.x << " " << tree->boundingBox->zLimits.y << endl;
+
+                cout << "Drone collided with tree" << endl;
+                // return;
+            }
+            index++;
+        }
+
+        // Move the drone
+        if (window->KeyHold(GLFW_KEY_A)) {
+            drone->position.x -= deltaTime * DRONE_SPEED;
+            drone->boundingSphere->center.x -= deltaTime * DRONE_SPEED;
+        }
+
+        if (window->KeyHold(GLFW_KEY_D)) {
+            drone->position.x += deltaTime * DRONE_SPEED;
+            drone->boundingSphere->center.x += deltaTime * DRONE_SPEED;
+        }
+
+        if (window->KeyHold(GLFW_KEY_W)) {
+            drone->position.z -= deltaTime * DRONE_SPEED;
+            drone->boundingSphere->center.z -= deltaTime * DRONE_SPEED;
+        }
+
+        if (window->KeyHold(GLFW_KEY_S)) {
+            drone->position.z += deltaTime * DRONE_SPEED;
+            drone->boundingSphere->center.z += deltaTime * DRONE_SPEED;
+        }
+
+        if (window->KeyHold(GLFW_KEY_Q)) {
+            drone->position.y -= deltaTime * DRONE_SPEED;
+            drone->boundingSphere->center.y -= deltaTime * DRONE_SPEED;
+        }
+
+        if (window->KeyHold(GLFW_KEY_E)) {
+            drone->position.y += deltaTime * DRONE_SPEED;
+            drone->boundingSphere->center.y += deltaTime * DRONE_SPEED;
+        }
+
+        if (window->KeyHold(GLFW_KEY_LEFT)) {
+            drone->droneAngle -= deltaTime * DRONE_ROTATION_SPEED;
+        }
+
+        if (window->KeyHold(GLFW_KEY_RIGHT)) {
+            drone->droneAngle += deltaTime * DRONE_ROTATION_SPEED;
+        }
     }
 }
 

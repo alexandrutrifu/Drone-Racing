@@ -6,6 +6,7 @@
 #include "components/simple_scene.h"
 #include "camera.h"
 #include "drone/drone.h"
+#include "environment/trees/tree.h"
 
 #include <vector>
 #include <iostream>
@@ -59,7 +60,8 @@ namespace m1
         bool renderCameraTarget;
 
         // Objects
-        drones::Drone *drone;
+        drones::Drone *drone{};
+        vector<trees::Tree *> trees{};
     };
 }   // namespace m1
 
