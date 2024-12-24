@@ -16,13 +16,18 @@ void Tema2::Init()
     camera = new camera::Camera();
     camera->Set(glm::vec3(0, 2, 3.5f), glm::vec3(0, 1, 0), glm::vec3(0, 1, 0));
 
-    // Left bottom corner
     glm::vec3 corner = glm::vec3(0, 0, 0);
 
     {
         Mesh* mesh = new Mesh("box");
         mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "primitives"), "box.obj");
         meshes[mesh->GetMeshID()] = mesh;
+    }
+
+    // Create terrain
+    {
+        terrain = new terrain::Terrain();
+        terrain->CreateTerrain("terrain", corner);
     }
 
     // Create the drone meshes
@@ -87,20 +92,11 @@ void Tema2::Update(float deltaTimeSeconds)
     //     RenderMesh(meshes["sphere"], shaders["VertexNormal"], modelMatrix);
     // }
 
+    // Render terrain
+    terrain->RenderTerrain(shaders["LabShader"], camera, projectionMatrix);
+
     // Render drone
     drone->RenderDrone(shaders["LabShader"], camera, projectionMatrix);
-
-    // PRINT DRONE POSITION
-    // Print sphere ends
-                cout << "Sphere center " << drone->boundingSphere->center.x << " "
-                    << drone->boundingSphere->center.y << " "
-                    << drone->boundingSphere->center.z << endl;
-                cout << "Sphere ends: " << drone->boundingSphere->center.x - drone->boundingSphere->radius << " "
-                    << drone->boundingSphere->center.x + drone->boundingSphere->radius << " "
-                    << drone->boundingSphere->center.y - drone->boundingSphere->radius << " "
-                    << drone->boundingSphere->center.y + drone->boundingSphere->radius << " "
-                    << drone->boundingSphere->center.z - drone->boundingSphere->radius << " "
-                    << drone->boundingSphere->center.z + drone->boundingSphere->radius << endl;
 
     // Render trees
     for (auto &tree : trees) {
@@ -204,7 +200,7 @@ void Tema2::OnInputUpdate(float deltaTime, int mods)
                 cout << tree->boundingBox->zLimits.x << " " << tree->boundingBox->zLimits.y << endl;
 
                 cout << "Drone collided with tree" << endl;
-                // return;
+                break;
             }
             index++;
         }
