@@ -245,10 +245,8 @@ void drones::Drone::RenderDrone(Shader *shader, camera::Camera *camera, const gl
 
 }
 
-bool drones::Drone::collidesWithObject(obstacles::BoundingBox *box)
+bool drones::Drone::collidesWithObject(BoundingSphere *sphere, obstacles::BoundingBox *box)
 {
-    BoundingSphere *sphere = this->boundingSphere;
-
     const float x = std::max(box->xLimits.x, std::min(sphere->center.x, box->xLimits.y));
     const float y = std::max(box->yLimits.x, std::min(sphere->center.y, box->yLimits.y));
     const float z = std::max(box->zLimits.x, std::min(sphere->center.z, box->zLimits.y));
@@ -260,4 +258,17 @@ bool drones::Drone::collidesWithObject(obstacles::BoundingBox *box)
     );
 
     return distance < sphere->radius;
+}
+
+bool drones::Drone::collidesWithTree(BoundingSphere *sphere, trees::Tree *tree)
+{
+    // Handle collision with each tree part
+    return this->collidesWithObject(sphere, tree->boundingBox);
+}
+
+bool drones::Drone::forestCollisions(BoundingSphere *sphere, vector<trees::Tree *> forest)
+{
+    return std::any_of(forest.begin(), forest.end(), [this, sphere](trees::Tree *tree) {
+        return this->collidesWithTree(sphere, tree);
+    });
 }

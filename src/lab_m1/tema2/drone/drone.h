@@ -11,6 +11,7 @@
 #include "../objects/objects.h"
 #include "../camera.h"
 #include "../environment/obstacle.h"
+#include "../environment/trees/tree.h"
 
 using namespace std;
 
@@ -46,7 +47,10 @@ namespace drones
 
             void CreateDrone(const char *name, const glm::vec3 &corner, const float scaleFactor);
             void RenderDrone(Shader *shader, camera::Camera *camera, const glm::mat4 &projectionMatrix);
-            bool collidesWithObject(obstacles::BoundingBox *box);
+            
+            bool collidesWithObject(BoundingSphere *sphere, obstacles::BoundingBox *box);
+            bool collidesWithTree(BoundingSphere *sphere, trees::Tree *tree);
+            bool forestCollisions(BoundingSphere *sphere, vector<trees::Tree *> forest);
 
             vector<objects::Cube *> limbs{};
             vector<objects::Cube *> endCubes{};

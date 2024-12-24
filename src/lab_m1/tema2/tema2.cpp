@@ -108,7 +108,7 @@ void Tema2::OnInputUpdate(float deltaTime, int mods)
    // move the camera only if MOUSE_RIGHT button is pressed
     if (window->MouseHold(GLFW_MOUSE_BUTTON_RIGHT))
     {
-        float cameraSpeed = 2.0f;
+        float cameraSpeed = 6.0f;
 
         if (window->KeyHold(GLFW_KEY_W)) {
             // TODO(student): Translate the camera forward
@@ -173,58 +173,41 @@ void Tema2::OnInputUpdate(float deltaTime, int mods)
             projectionMatrix = glm::ortho(left, right, bottom, top, zNear, zFar);
         }
     } else {
-        // Check for collisions
-        int index = 1;
-        for (auto &tree : forest) {
-            if (drone->collidesWithObject(tree->boundingBox)) {
-                // Print sphere ends
-                cout << "Sphere ends: " << drone->boundingSphere->center.x - drone->boundingSphere->radius << " "
-                    << drone->boundingSphere->center.x + drone->boundingSphere->radius << " "
-                    << drone->boundingSphere->center.y - drone->boundingSphere->radius << " "
-                    << drone->boundingSphere->center.y + drone->boundingSphere->radius << " "
-                    << drone->boundingSphere->center.z - drone->boundingSphere->radius << " "
-                    << drone->boundingSphere->center.z + drone->boundingSphere->radius << endl;
+        glm::vec3 nextPosition = drone->position; // Start with the current position
 
-                cout << "We hit tree " << index << endl;
-                cout << tree->boundingBox->xLimits.x << " " << tree->boundingBox->xLimits.y << endl;
-                cout << tree->boundingBox->yLimits.x << " " << tree->boundingBox->yLimits.y << endl;
-                cout << tree->boundingBox->zLimits.x << " " << tree->boundingBox->zLimits.y << endl;
-
-                cout << "Drone collided with tree" << endl;
-                break;
-            }
-            index++;
-        }
-
-        // Move the drone
+        // Predict the next position
         if (window->KeyHold(GLFW_KEY_A)) {
-            drone->position.x -= deltaTime * DRONE_SPEED;
-            drone->boundingSphere->center.x -= deltaTime * DRONE_SPEED;
+            nextPosition.x -= deltaTime * DRONE_SPEED;
         }
-
         if (window->KeyHold(GLFW_KEY_D)) {
-            drone->position.x += deltaTime * DRONE_SPEED;
-            drone->boundingSphere->center.x += deltaTime * DRONE_SPEED;
+            nextPosition.x += deltaTime * DRONE_SPEED;
         }
-
         if (window->KeyHold(GLFW_KEY_W)) {
-            drone->position.z -= deltaTime * DRONE_SPEED;
-            drone->boundingSphere->center.z -= deltaTime * DRONE_SPEED;
+            nextPosition.z -= deltaTime * DRONE_SPEED;
         }
-
         if (window->KeyHold(GLFW_KEY_S)) {
-            drone->position.z += deltaTime * DRONE_SPEED;
-            drone->boundingSphere->center.z += deltaTime * DRONE_SPEED;
+            nextPosition.z += deltaTime * DRONE_SPEED;
         }
-
         if (window->KeyHold(GLFW_KEY_Q)) {
-            drone->position.y -= deltaTime * DRONE_SPEED;
-            drone->boundingSphere->center.y -= deltaTime * DRONE_SPEED;
+            nextPosition.y -= deltaTime * DRONE_SPEED;
+        }
+        if (window->KeyHold(GLFW_KEY_E)) {
+            nextPosition.y += deltaTime * DRONE_SPEED;
         }
 
-        if (window->KeyHold(GLFW_KEY_E)) {
-            drone->position.y += deltaTime * DRONE_SPEED;
-            drone->boundingSphere->center.y += deltaTime * DRONE_SPEED;
+        // Form new bounding sphere for next position
+        drones::BoundingSphere *nextBoundingSphere = new drones::BoundingSphere();
+
+        nextBoundingSphere->center = nextPosition;
+        nextBoundingSphere->radius = BOUNDING_SPHERE_RADIUS;
+
+        // Update position only if no collision occurs
+        if (!drone->forestCollisions(nextBoundingSphere, forest)) {
+            drone->position = nextPosition;
+            drone->boundingSphere->center = nextPosition; // Update the bounding sphere position
+        } else {
+            // Print a message if a collision occurs
+            cout << "Collision detected!" << endl;
         }
 
         if (window->KeyHold(GLFW_KEY_LEFT)) {
