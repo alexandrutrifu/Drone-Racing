@@ -128,3 +128,63 @@ void Gate::RenderGate(Shader *shader, camera::Camera *camera, const glm::mat4 &p
     }
 }
 
+void gates::Gate::RenderObject(Shader *shader, const glm::mat4 &modelMatrix, camera::Camera *camera, const glm::mat4 &projectionMatrix)
+{
+    Mesh *mesh = this->mesh;
+
+    if (!mesh || !shader || !shader->GetProgramID())
+        return;
+
+    // Render an object using the specified shader and the specified position
+    glUseProgram(shader->program);
+
+    int modelLocation = glGetUniformLocation(shader->GetProgramID(), "Model");
+
+    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+
+    int viewLocation = glGetUniformLocation(shader->GetProgramID(), "View");
+
+    glm::mat4 viewMatrix = camera->GetViewMatrix();
+
+    glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+
+    int projectionLocation = glGetUniformLocation(shader->GetProgramID(), "Projection");
+
+    glm::mat4 localProjectionMatrix = projectionMatrix;
+
+    glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(localProjectionMatrix));
+
+    // Send color data to shader
+    int gateColorLoc = glGetUniformLocation(shader->program, "gate_color");
+    glUniform3fv(gateColorLoc, 1, glm::value_ptr(this->gateColor));
+
+    // Draw the object
+    glBindVertexArray(mesh->GetBuffers()->m_VAO);
+    glDrawElements(mesh->GetDrawMode(), static_cast<int>(mesh->indices.size()), GL_UNSIGNED_INT, 0);
+}
+
+vector<Gate *> gates::Gate::generateGates()
+{
+    vector<Gate *> gates{};
+
+    for (int i = 0; i < NUM_GATES; i++) {
+        gates::Gate *gate = new gates::Gate();
+
+        // Randomize the gate radius
+        float radius = rand() % 3 + GATE_RADIUS;
+
+        gate->CreateGate("gate", glm::vec3(0, 0, 0), radius);
+
+        // Randomize the gate position
+        float xPos = rand() % (int)(1.5f * terrain::terrainSize) - terrain::terrainSize;
+        float yPos = rand() % 7 + (2 * radius);
+        float zPos = rand() % (int)(1.5f * terrain::terrainSize) - terrain::terrainSize;
+        
+        gate->position = glm::vec3(xPos, yPos, zPos);
+        gate->gateAngle = rand() % 180;
+
+        gates.push_back(gate);
+    }
+
+    return gates;
+}
