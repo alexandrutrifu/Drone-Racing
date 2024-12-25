@@ -12,13 +12,7 @@
 
 using namespace std;
 
-#define PROPELLER_HEIGHT 0.19f
-#define PROPELLER_OFFSET 0.72f
-#define PROPELLER_SPEED 10.0f
-#define LIMB_LENGTH 2.0f
-#define END_CUBE_LENGTH 0.08f
-#define DRONE_SPEED 3.0f
-#define DRONE_ROTATION_SPEED 5.0f
+#define BOUNDING_SPHERE_RADIUS 0.8f
 
 namespace obstacles
 {
@@ -31,6 +25,16 @@ namespace obstacles
             glm::vec2 xLimits;
             glm::vec2 yLimits;
             glm::vec2 zLimits;
+    };
+
+    class BoundingSphere : public gfxc::SimpleScene
+    {
+        public:
+            BoundingSphere() = default;
+            ~BoundingSphere() = default;
+
+            glm::vec3 center;
+            float radius;
     };
 
     class Obstacle : public gfxc::SimpleScene

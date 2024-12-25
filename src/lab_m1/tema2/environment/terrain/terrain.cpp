@@ -9,19 +9,41 @@ void Terrain::CreateTerrain(const char *name, const glm::vec3 &corner)
 {
     float size = terrainSize;
 
-    // Create a simple 4-vertex mesh
-    vector<VertexFormat> vertices
-    {
-        VertexFormat(corner + glm::vec3(-size, 0,  size), glm::vec3(0, 1, 1), groundColor),
-        VertexFormat(corner + glm::vec3(size, 0,  size), glm::vec3(1, 0, 1), groundColor),
-        VertexFormat(corner + glm::vec3(-size, 0, -size), glm::vec3(1, 0, 0), groundColor),
-        VertexFormat(corner + glm::vec3(size, 0, -size), glm::vec3(0, 1, 0), groundColor),
-    };
+    vector<VertexFormat> vertices{};
+    vector<unsigned int> indices{};
 
-    vector<unsigned int> indices =
-    {
-        0, 1, 2,        1, 3, 2
-    };
+    int step = 1;
+    int vertexCount = (2 * size / step) + 1;  // Total vertices along one axis
+
+    // Generate vertices from -size to size
+    for (int i = 0; i < vertexCount; i++) {
+        for (int j = 0; j < vertexCount; j++) {
+            float xPos = corner.x - size + i * step;
+            float zPos = corner.z - size + j * step;
+
+            vertices.push_back(VertexFormat(glm::vec3(xPos, 0, zPos), glm::vec3(0, 1, 0), groundColor));
+        }
+    }
+
+    // Generate indices for triangles
+    for (int i = 0; i < vertexCount - 1; i++) {
+        for (int j = 0; j < vertexCount - 1; j++) {
+            int topLeft = i * vertexCount + j;
+            int topRight = topLeft + 1;
+            int bottomLeft = (i + 1) * vertexCount + j;
+            int bottomRight = bottomLeft + 1;
+
+            // First triangle
+            indices.push_back(topLeft);
+            indices.push_back(bottomLeft);
+            indices.push_back(topRight);
+
+            // Second triangle
+            indices.push_back(topRight);
+            indices.push_back(bottomLeft);
+            indices.push_back(bottomRight);
+        }
+    }
 
     this->mesh = Terrain::CreateMesh(name, vertices, indices);
 }

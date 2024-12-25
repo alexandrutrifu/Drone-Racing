@@ -99,6 +99,21 @@ void trees::Tree::setPosition(const glm::vec3 &position)
     this->boundingBox->zLimits.y = this->position.z + BIG_CONE_RADIUS * this->scaleFactor;
 }
 
+bool trees::Tree::collidesWithDrone(BoundingSphere *sphere, obstacles::BoundingBox *box)
+{
+    const float x = std::max(box->xLimits.x, std::min(sphere->center.x, box->xLimits.y));
+    const float y = std::max(box->yLimits.x, std::min(sphere->center.y, box->yLimits.y));
+    const float z = std::max(box->zLimits.x, std::min(sphere->center.z, box->zLimits.y));
+
+    const float distance = std::sqrt(
+        (x - sphere->center.x) * (x - sphere->center.x) +
+        (y - sphere->center.y) * (y - sphere->center.y) +
+        (z - sphere->center.z) * (z - sphere->center.z)
+    );
+
+    return distance < sphere->radius;
+}
+
 vector<Tree *> trees::Tree::generateForest()
 {
     srand(time(NULL));
@@ -123,9 +138,18 @@ vector<Tree *> trees::Tree::generateForest()
         int attempts = 0;
         int maxAttempts = 100;
 
-        while (attempts < maxAttempts && any_of(forest.begin(), forest.end(), [&](Tree *t) {
+        // Drone collision detection
+        auto collidesWithDrone = [&]() {
+            BoundingSphere *sphere = new BoundingSphere();
+            sphere->center = glm::vec3(0, 0, 0);
+            sphere->radius = BOUNDING_SPHERE_RADIUS;    // Initial position at spawn
+
+            return tree->collidesWithDrone(sphere, tree->boundingBox);
+        };
+
+        while (attempts < maxAttempts && (collidesWithDrone() || any_of(forest.begin(), forest.end(), [&](Tree *t) {
             return t->overlapsWith(tree->boundingBox);
-        })) {
+        }))) {
             xPos = rand() % (2 * limit) - limit;
             zPos = rand() % (2 * limit) - limit;
 

@@ -22,11 +22,12 @@
 #define CONE_OFFSET glm::vec3(0, 0.7f, 0)
 
 using namespace std;
+using namespace obstacles;
 
 namespace trees
 {
     const int treeMaxHeight = 5;
-    const int forestSize = 60;
+    const int forestSize = 20;
     
     const glm::vec3 sapGreen = glm::vec3(0.349, 0.486, 0.169);
     const glm::vec3 palmGreen = glm::vec3(0.435, 0.6, 0.251);
@@ -46,6 +47,7 @@ namespace trees
                             const glm::vec3 &treeTrunkColor = trees::treeTrunkColor, const glm::vec3 &treeLeavesColor = sapGreen);
             void RenderTree(Shader *shader, camera::Camera *camera, const glm::mat4 &projectionMatrix);
             void setPosition(const glm::vec3 &position);
+            bool collidesWithDrone(BoundingSphere *sphere, obstacles::BoundingBox *box);
 
             static vector<Tree *> generateForest();
 
