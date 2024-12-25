@@ -46,24 +46,7 @@ void Tema2::Init()
 
     // Create gates
     {
-        for (int i = 0; i < numGates; i++) {
-            gates::Gate *gate = new gates::Gate();
-
-            // Randomize the gate radius
-            float radius = rand() % 3 + GATE_RADIUS;
-
-            gate->CreateGate("gate", glm::vec3(0, 0, 0), radius);
-
-            // Randomize the gate position
-            float xPos = rand() % (int)(1.5f * terrain::terrainSize) - terrain::terrainSize;
-            float yPos = rand() % 7 + (2 * radius);
-            float zPos = rand() % (int)(1.5f * terrain::terrainSize) - terrain::terrainSize;
-            
-            gate->position = glm::vec3(xPos, yPos, zPos);
-            gate->gateAngle = rand() % 180;
-
-            gates.push_back(gate);
-        }
+        gates = gates::Gate::generateGates();
     }
 
     // Create a shader program for drawing face polygon with the color of the normal
@@ -78,8 +61,17 @@ void Tema2::Init()
     // Terrain shader
     {
         Shader *shader = new Shader("TerrainShader");
-        shader->AddShader(PATH_JOIN(window->props.selfDir, SOURCE_PATH::M1, "tema2", "shaders", "TerrainVertexShader.glsl"), GL_VERTEX_SHADER);
-        shader->AddShader(PATH_JOIN(window->props.selfDir, SOURCE_PATH::M1, "tema2", "shaders", "TerrainFragmentShader.glsl"), GL_FRAGMENT_SHADER);
+        shader->AddShader(PATH_JOIN(window->props.selfDir, SOURCE_PATH::M1, "tema2", "shaders", "terrainShaders", "TerrainVertexShader.glsl"), GL_VERTEX_SHADER);
+        shader->AddShader(PATH_JOIN(window->props.selfDir, SOURCE_PATH::M1, "tema2", "shaders", "terrainShaders", "TerrainFragmentShader.glsl"), GL_FRAGMENT_SHADER);
+        shader->CreateAndLink();
+        shaders[shader->GetName()] = shader;
+    }
+
+    // Gate shader
+    {
+        Shader *shader = new Shader("TerrainShader");
+        shader->AddShader(PATH_JOIN(window->props.selfDir, SOURCE_PATH::M1, "tema2", "shaders", "gateShaders", "GateVertexShader.glsl"), GL_VERTEX_SHADER);
+        shader->AddShader(PATH_JOIN(window->props.selfDir, SOURCE_PATH::M1, "tema2", "shaders", "gateShaders", "GateFragmentShader.glsl"), GL_FRAGMENT_SHADER);
         shader->CreateAndLink();
         shaders[shader->GetName()] = shader;
     }

@@ -63,9 +63,6 @@ namespace m1
         glm::mat4 projectionMatrix = glm::perspective(fov, window->props.aspectRatio, zNear, zFar);
         bool renderCameraTarget;
 
-        // Object counters
-        int numGates = terrain::terrainSize / 5;
-
         // Objects
         terrain::Terrain *terrain{};
         drones::Drone *drone{};
