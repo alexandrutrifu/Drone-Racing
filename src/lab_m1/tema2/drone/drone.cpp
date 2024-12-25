@@ -272,3 +272,65 @@ bool drones::Drone::forestCollisions(BoundingSphere *sphere, vector<trees::Tree 
         return this->collidesWithTree(sphere, tree);
     });
 }
+
+bool drones::Drone::collidesWithGate(BoundingSphere *sphere, gates::Gate *gate)
+{
+    // Gate dimensions
+    float gateHalfRadius = gate->radius / 2.0f; // Half of the gate's radius
+    float gateThickness = 0.4f;                // Depth along the Z-axis
+    float gateHeight = gate->radius;           // Total height of the gate
+
+    // Calculate the relative bounds for each side of the gate
+
+    // Left side of the gate
+    bool collidesLeft = sphere->center.x >= gate->position.x - gate->radius
+                     && sphere->center.x <= gate->position.x - gateHalfRadius
+                     && sphere->center.y >= gate->position.y - gateHeight
+                     && sphere->center.y <= gate->position.y + gateHeight
+                     && sphere->center.z >= gate->position.z - gateThickness
+                     && sphere->center.z <= gate->position.z + gateThickness;
+
+    // Right side of the gate
+    bool collidesRight = sphere->center.x >= gate->position.x + gateHalfRadius
+                      && sphere->center.x <= gate->position.x + gate->radius
+                      && sphere->center.y >= gate->position.y - gateHeight
+                      && sphere->center.y <= gate->position.y + gateHeight
+                      && sphere->center.z >= gate->position.z - gateThickness
+                      && sphere->center.z <= gate->position.z + gateThickness;
+
+    // Top part of the gate
+    bool collidesTop = sphere->center.x >= gate->position.x - gate->radius
+                    && sphere->center.x <= gate->position.x + gate->radius
+                    && sphere->center.y >= gate->position.y + gateHalfRadius
+                    && sphere->center.y <= gate->position.y + gateHeight
+                    && sphere->center.z >= gate->position.z - gateThickness
+                    && sphere->center.z <= gate->position.z + gateThickness;
+
+    // Bottom part of the gate
+    bool collidesBottom = sphere->center.x >= gate->position.x - gate->radius
+                       && sphere->center.x <= gate->position.x + gate->radius
+                       && sphere->center.y >= gate->position.y - gateHeight
+                       && sphere->center.y <= gate->position.y - gateHalfRadius
+                       && sphere->center.z >= gate->position.z - gateThickness
+                       && sphere->center.z <= gate->position.z + gateThickness;
+
+    // Return true if the sphere collides with any part of the gate
+    return collidesLeft || collidesRight || collidesTop || collidesBottom;
+}
+
+bool drones::Drone::gatesCollisions(BoundingSphere *sphere, vector<gates::Gate *> gates)
+{
+    return std::any_of(gates.begin(), gates.end(), [this, sphere](gates::Gate *gate) {
+        return this->collidesWithGate(sphere, gate) && !this->passesThroughGate(sphere, gate);
+    });
+}
+
+bool drones::Drone::passesThroughGate(BoundingSphere *sphere, gates::Gate *gate)
+{
+    return sphere->center.x < gate->position.x + gate->radius * 0.8f
+        && sphere->center.x > gate->position.x - gate->radius * 0.8f
+        && sphere->center.y < gate->position.y + gate->radius * 0.8f
+        && sphere->center.y > gate->position.y - gate->radius * 0.8f
+        && sphere->center.z < gate->position.z + 0.3f
+        && sphere->center.z > gate->position.z - 0.3f;
+}

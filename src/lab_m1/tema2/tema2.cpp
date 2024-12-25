@@ -47,6 +47,18 @@ void Tema2::Init()
     // Create gates
     {
         gates = gates::Gate::generateGates();
+
+        // Checkpoint order
+        for (int i = 0; i < gates.size(); i++) {
+            checkpointOrder.push_back(i);
+        }
+
+        std::random_shuffle(checkpointOrder.begin(), checkpointOrder.end());
+
+        // Activate first gate
+        gates[checkpointOrder[0]]->isActive = true;
+        gates[checkpointOrder[0]]->gateColor = GATE_ACTIVE_COLOR;
+        currentGate = gates[checkpointOrder[0]];
     }
 
     // Create a shader program for drawing face polygon with the color of the normal
@@ -69,7 +81,7 @@ void Tema2::Init()
 
     // Gate shader
     {
-        Shader *shader = new Shader("TerrainShader");
+        Shader *shader = new Shader("GateShader");
         shader->AddShader(PATH_JOIN(window->props.selfDir, SOURCE_PATH::M1, "tema2", "shaders", "gateShaders", "GateVertexShader.glsl"), GL_VERTEX_SHADER);
         shader->AddShader(PATH_JOIN(window->props.selfDir, SOURCE_PATH::M1, "tema2", "shaders", "gateShaders", "GateFragmentShader.glsl"), GL_FRAGMENT_SHADER);
         shader->CreateAndLink();
@@ -123,7 +135,26 @@ void Tema2::Update(float deltaTimeSeconds)
 
     // Render gates
     for (auto &gate : gates) {
-        gate->RenderGate(shaders["LabShader"], camera, projectionMatrix);
+        gate->RenderGate(shaders["GateShader"], camera, projectionMatrix);
+    }
+
+    // Check if drone passes through a gate
+    if (drone->passesThroughGate(drone->boundingSphere, currentGate)) {
+        // Deactivate the current gate
+        currentGate->isActive = false;
+        currentGate->gateColor = GATE_PASSIVE_COLOR;
+
+        // Check if game is over
+        if (currentCheckpoint == NUM_GATES - 1) {
+            // Game over
+            cout << "Game over!" << endl;
+            exit(0);
+        }
+
+        // Activate the next gate
+        currentGate = gates[checkpointOrder[++currentCheckpoint]];
+        currentGate->isActive = true;
+        currentGate->gateColor = GATE_ACTIVE_COLOR;
     }
 }
 
@@ -261,7 +292,9 @@ void Tema2::OnInputUpdate(float deltaTime, int mods)
         nextBoundingSphere->radius = BOUNDING_SPHERE_RADIUS;
 
         // Update position only if no collision occurs
-        if (nextPosition.y > 0.2f && !drone->forestCollisions(nextBoundingSphere, forest)) {
+        if (nextPosition.y > 0.2f
+            && !drone->forestCollisions(nextBoundingSphere, forest)
+            && !drone->gatesCollisions(nextBoundingSphere, gates)) {
             // Move camera to the new position
             camera->position = cameraNextPosition;
 
@@ -273,6 +306,10 @@ void Tema2::OnInputUpdate(float deltaTime, int mods)
         } else {
             // Print a message if a collision occurs
             cout << "Collision detected!" << endl;
+        }
+
+        if (drone->gatesCollisions(nextBoundingSphere, gates)) {
+            cout << "Collision with gate detected!" << endl;
         }
     }
 }

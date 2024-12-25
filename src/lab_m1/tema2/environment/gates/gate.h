@@ -15,6 +15,7 @@
 #define NUM_GATES (terrain::terrainSize / 5)
 #define GATE_RADIUS 2
 #define GATE_PASSIVE_COLOR glm::vec3(0.5, 0.5, 0.5)
+#define GATE_ACTIVE_COLOR glm::vec3(0, 1, 0)
 
 using namespace std;
 
@@ -31,9 +32,12 @@ namespace gates
 
             void RenderObject(Shader *shader, const glm::mat4 &modelMatrix, camera::Camera *camera, const glm::mat4 &projectionMatrix) override;
 
+            void setPosition(const glm::vec3 &position, float radius);
+
             static vector<Gate *> generateGates();
 
             glm::vec3 position{};
+            float radius{};
             float gateAngle{};
             bool isActive = false;
             glm::vec3 gateColor = GATE_PASSIVE_COLOR;

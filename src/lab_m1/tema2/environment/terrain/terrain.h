@@ -15,7 +15,7 @@ using namespace std;
 
 namespace terrain
 {
-    const glm::vec3 groundColor = glm::vec3(0.133, 0.365, 0.031);
+    const glm::vec3 groundColor = glm::vec3(0.188, 0.42, 0.251);
     const float terrainSize = 30;
 
     class Terrain : public obstacles::Obstacle, public objects::Object

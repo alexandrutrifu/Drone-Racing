@@ -68,6 +68,11 @@ namespace m1
         drones::Drone *drone{};
         vector<trees::Tree *> forest{};
         vector<gates::Gate *> gates{};
+        vector<int> checkpointOrder{};
+
+        // Gates
+        gates::Gate *currentGate;
+        int currentCheckpoint = 0;
     };
 }   // namespace m1
 

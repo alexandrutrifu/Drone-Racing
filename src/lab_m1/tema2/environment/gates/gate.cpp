@@ -107,6 +107,17 @@ void gates::Gate::CreateGate(const char *name, const glm::vec3 &corner, float bi
     // Use your mesh creation function here with vertices and indices
     // For example:
     this->mesh = Gate::CreateMesh(name, vertices, indices);
+
+    // Create bounding box
+    glm::vec2 xBound = glm::vec2(corner.x, corner.x + bigRadius);
+    glm::vec2 yBound = glm::vec2(corner.y, corner.y + bigRadius);
+    glm::vec2 zBound = glm::vec2(corner.z - 0.3, corner.z);
+
+    this->boundingBox = new obstacles::BoundingBox();
+
+    this->boundingBox->xLimits = xBound;
+    this->boundingBox->yLimits = yBound;
+    this->boundingBox->zLimits = zBound;
 }
 
 void Gate::RenderGate(Shader *shader, camera::Camera *camera, const glm::mat4 &projectionMatrix)
@@ -114,17 +125,29 @@ void Gate::RenderGate(Shader *shader, camera::Camera *camera, const glm::mat4 &p
     // Render gate
     {
         glm::mat4 modelMatrix = glm::mat4(1);
-
-        // Rotate the gate to the desired orientation
-        modelMatrix = glm::rotate(modelMatrix, glm::radians(this->gateAngle), glm::vec3(0, 1, 0));
         
         // Translate the gate to the desired position
         modelMatrix = glm::translate(modelMatrix, this->position);
+
+        // Rotate the gate to the desired orientation
+        modelMatrix = glm::rotate(modelMatrix, glm::radians(this->gateAngle), glm::vec3(0, 1, 0));
 
         // Scale the gate
         // modelMatrix = glm::scale(modelMatrix, );
 
         this->RenderObject(shader, modelMatrix, camera, projectionMatrix);
+    }
+
+    // Update the gate's position
+    {
+        this->boundingBox->xLimits.x = this->position.x - this->radius;
+        this->boundingBox->xLimits.y = this->position.x + this->radius;
+
+        this->boundingBox->yLimits.x = this->position.y - this->radius;
+        this->boundingBox->yLimits.y = this->position.y + this->radius;
+
+        this->boundingBox->zLimits.x = this->position.z - 0.3f;
+        this->boundingBox->zLimits.y = this->position.z + 0.3f;
     }
 }
 
@@ -163,6 +186,21 @@ void gates::Gate::RenderObject(Shader *shader, const glm::mat4 &modelMatrix, cam
     glDrawElements(mesh->GetDrawMode(), static_cast<int>(mesh->indices.size()), GL_UNSIGNED_INT, 0);
 }
 
+void gates::Gate::setPosition(const glm::vec3 &position, float radius)
+{
+    this->position = position;
+
+    // Update bounding box position
+    this->boundingBox->xLimits.x = this->position.x - radius;
+    this->boundingBox->xLimits.y = this->position.x + radius;
+
+    this->boundingBox->yLimits.x = this->position.y;
+    this->boundingBox->yLimits.y = this->position.y + radius;
+
+    this->boundingBox->zLimits.x = this->position.z - 0.3f;
+    this->boundingBox->zLimits.y = this->position.z;
+}
+
 vector<Gate *> gates::Gate::generateGates()
 {
     vector<Gate *> gates{};
@@ -180,10 +218,14 @@ vector<Gate *> gates::Gate::generateGates()
         float yPos = rand() % 7 + (2 * radius);
         float zPos = rand() % (int)(1.5f * terrain::terrainSize) - terrain::terrainSize;
         
-        gate->position = glm::vec3(xPos, yPos, zPos);
+        gate->setPosition(glm::vec3(xPos, yPos, zPos), radius);
+        gate->radius = radius;
         gate->gateAngle = rand() % 180;
 
         gates.push_back(gate);
+
+        // Print the gate's position and bounding box
+        cout << "Gate position: " << gate->position.x << " " << gate->position.y << " " << gate->position.z << endl;
     }
 
     return gates;

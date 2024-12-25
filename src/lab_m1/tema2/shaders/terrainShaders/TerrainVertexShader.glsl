@@ -32,7 +32,7 @@ void main()
 
     // Apply smoother noise to the y-coordinate for height variation
     vec3 pos = v_position;
-    float frequency = 0.01; // Lower frequency for wider curves
+    float frequency = 0.005; // Lower frequency for wider curves
     float amplitude = 0.3; // Smaller amplitude for smoother terrain
 
     float noiseValue = noise(v_position.xz * frequency);

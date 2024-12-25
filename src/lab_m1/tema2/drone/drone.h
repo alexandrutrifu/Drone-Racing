@@ -12,8 +12,10 @@
 #include "../camera.h"
 #include "../environment/obstacle.h"
 #include "../environment/trees/tree.h"
+#include "../environment/gates/gate.h"
 
 using namespace std;
+using namespace obstacles;
 
 #define PROPELLER_HEIGHT 0.19f
 #define PROPELLER_OFFSET 0.72f
@@ -22,23 +24,11 @@ using namespace std;
 #define LIMB_LENGTH 2.0f
 #define END_CUBE_LENGTH 0.08f
 
-#define DRONE_SPEED 3.0f
-#define DRONE_ROTATION_SPEED 5.0f
-
-#define BOUNDING_SPHERE_RADIUS 0.8f
+#define DRONE_SPEED 10.0f
+#define DRONE_ROTATION_SPEED 3.0f
 
 namespace drones
 {
-    class BoundingSphere : public gfxc::SimpleScene
-    {
-        public:
-            BoundingSphere() = default;
-            ~BoundingSphere() = default;
-
-            glm::vec3 center;
-            float radius;
-    };
-
     class Drone : public gfxc::SimpleScene
     {
         public:
@@ -51,6 +41,9 @@ namespace drones
             bool collidesWithObject(BoundingSphere *sphere, obstacles::BoundingBox *box);
             bool collidesWithTree(BoundingSphere *sphere, trees::Tree *tree);
             bool forestCollisions(BoundingSphere *sphere, vector<trees::Tree *> forest);
+            bool collidesWithGate(BoundingSphere *sphere, gates::Gate *gate);
+            bool gatesCollisions(BoundingSphere *sphere, vector<gates::Gate *> gates);
+            bool passesThroughGate(BoundingSphere *sphere, gates::Gate *gate);
 
             vector<objects::Cube *> limbs{};
             vector<objects::Cube *> endCubes{};
@@ -60,7 +53,7 @@ namespace drones
 
             glm::vec3 position;
             float propellerAngle = 0;
-            float droneAngle = 0;
+            float droneAngle = 135;
 
             float scaleFactor = 1;
     };
