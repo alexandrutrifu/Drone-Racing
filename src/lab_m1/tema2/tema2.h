@@ -7,6 +7,7 @@
 #include "camera.h"
 #include "drone/drone.h"
 #include "environment/trees/tree.h"
+#include "environment/gates/gate.h"
 
 #include <vector>
 #include <iostream>
@@ -54,15 +55,22 @@ namespace m1
         float fov = RADIANS(60);
         float zNear = 0.01, zFar = 200;
 
+        float sensivityOX = 0.015f;
+        float sensivityOY = 0.015f;
+
         // Camera attributes
         camera::Camera *camera;
         glm::mat4 projectionMatrix = glm::perspective(fov, window->props.aspectRatio, zNear, zFar);
         bool renderCameraTarget;
 
+        // Object counters
+        int numGates = terrain::terrainSize / 5;
+
         // Objects
         terrain::Terrain *terrain{};
         drones::Drone *drone{};
         vector<trees::Tree *> forest{};
+        vector<gates::Gate *> gates{};
     };
 }   // namespace m1
 

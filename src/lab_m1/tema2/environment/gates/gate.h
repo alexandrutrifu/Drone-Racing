@@ -11,6 +11,8 @@
 #include "../../camera.h"
 #include "../obstacle.h"
 
+#define GATE_RADIUS 2
+
 using namespace std;
 
 namespace gates
@@ -21,8 +23,11 @@ namespace gates
             Gate();
             ~Gate() override;
 
-            void CreateGate(const char *name, const glm::vec3 &corner);
+            void CreateGate(const char *name, const glm::vec3 &corner, float bigRadius);
             void RenderGate(Shader *shader, camera::Camera *camera, const glm::mat4 &projectionMatrix);
+
+            glm::vec3 position{};
+            float gateAngle{};
     };
 }
 
