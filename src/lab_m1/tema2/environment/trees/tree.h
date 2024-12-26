@@ -27,7 +27,7 @@ using namespace obstacles;
 namespace trees
 {
     const int treeMaxHeight = 5;
-    const int forestSize = terrain::terrainSize * 1.5f;
+    const int forestSize = terrain::terrainSize * 1.3f;
     
     const glm::vec3 sapGreen = glm::vec3(0.349, 0.486, 0.169);
     const glm::vec3 palmGreen = glm::vec3(0.435, 0.6, 0.251);

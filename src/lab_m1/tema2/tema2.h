@@ -4,6 +4,7 @@
 #pragma once
 
 #include "components/simple_scene.h"
+#include "components/text_renderer.h"
 #include "camera.h"
 #include "drone/drone.h"
 #include "environment/trees/tree.h"
@@ -40,6 +41,9 @@ namespace m1
         void OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY) override;
         void OnWindowResize(int width, int height) override;
 
+        // Draw the heads-up display
+        void DrawHUD();
+
     protected:
         float cx{}, cy{};
         glm::mat3 modelMatrix{};
@@ -73,6 +77,30 @@ namespace m1
         // Gates
         gates::Gate *currentGate;
         int currentCheckpoint = 0;
+
+        // Text
+        // The actual renderer object
+        gfxc::TextRenderer *textRenderer;
+
+        // Draw primitives mode
+        GLenum polygonMode;
+
+        // Colors
+        const glm::vec3 kTextColor = NormalizedRGB(166, 172, 205);
+        const glm::vec3 kBackgroundColor = NormalizedRGB(41, 45, 62);
+
+        // Timer
+        float nanoSecondsPassed = 0;
+        int timerMinutes = 1;
+        int timerSeconds1 = 0;
+        int timerSeconds2 = 0;
+        
+        // Game over flag
+        bool gameOver = false;
+
+        // Starting countdown
+        bool startCountdown = true;
+        int countdown = 4;
     };
 }   // namespace m1
 

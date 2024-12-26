@@ -1,4 +1,5 @@
 #include "lab_m1/tema2/tema2.h"
+#include "tema2.h"
 
 using namespace m1;
 
@@ -25,6 +26,18 @@ void Tema2::Init()
         meshes[mesh->GetMeshID()] = mesh;
     }
 
+    // Text
+    {
+        // Default mode for filling polygons
+        polygonMode = GL_FILL;
+
+        // Create the text renderer object
+        glm::ivec2 resolution = window->GetResolution();
+        textRenderer = new gfxc::TextRenderer(window->props.selfDir, resolution.x, resolution.y);
+
+        textRenderer->Load(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::FONTS, "Hack-Bold.ttf"), 80);
+    }
+
     // Create terrain
     {
         terrain = new terrain::Terrain();
@@ -34,7 +47,7 @@ void Tema2::Init()
     // Create the drone meshes
     {
         drone = new drones::Drone();
-        drone->CreateDrone("drone", corner, 1);
+        drone->CreateDrone("drone", corner, 0.8f);
 
         this->drone->position = glm::vec3(0, 1, 0);
         this->drone->droneAngle = 135;
@@ -60,6 +73,8 @@ void Tema2::Init()
 
         // Checkpoint order
         for (int i = 0; i < gates.size(); i++) {
+            checkpointOrder.push_back(i);
+            checkpointOrder.push_back(i);
             checkpointOrder.push_back(i);
         }
 
@@ -101,6 +116,8 @@ void Tema2::Init()
 
 void Tema2::FrameStart()
 {
+    glPolygonMode(GL_FRONT_AND_BACK, polygonMode);
+
     // Clears the color buffer (using the previously set color) and depth buffer
     glEnable(GL_DEPTH_TEST);
     // Enable line smoothing and blending
@@ -129,6 +146,44 @@ void Tema2::Update(float deltaTimeSeconds)
     //     RenderMesh(meshes["sphere"], shaders["VertexNormal"], modelMatrix);
     // }
 
+    // Time update
+    nanoSecondsPassed += deltaTimeSeconds;
+
+    // Update countdown timer
+    if (startCountdown) {
+        if (nanoSecondsPassed >= 1.0f) {
+            nanoSecondsPassed = 0.0f;
+            countdown--;
+        }
+
+        if (countdown < 0) {
+            startCountdown = false;
+        }
+    } else {
+        // Substract a second from the timer
+        if (nanoSecondsPassed >= 1.0f) {
+            nanoSecondsPassed = 0.0f;
+            timerSeconds2--;
+        }
+
+        // Check if a minute has passed
+        if (timerSeconds2 < 0) {
+            timerSeconds2 = 9;
+            timerSeconds1--;
+        }
+
+        // Check if the timer has reached 0
+        if (timerSeconds1 < 0) {
+            timerSeconds1 = 5;
+            timerMinutes--;
+        }
+
+        // If time is up, game over
+        if (timerMinutes < 0) {
+            gameOver = true;
+        }
+    }
+
     // Render terrain
     terrain->RenderTerrain(shaders["TerrainShader"], camera, projectionMatrix);
 
@@ -149,33 +204,40 @@ void Tema2::Update(float deltaTimeSeconds)
     }
 
     // Check if drone passes through a gate
-    if (drone->passesThroughGate(drone->boundingSphere, currentGate)) {
-        // Deactivate the current gate
-        currentGate->isActive = false;
-        currentGate->gateColor = GATE_PASSIVE_COLOR;
+    if (!gameOver && !startCountdown) {
+        if (drone->passesThroughGate(drone->boundingSphere, currentGate)) {
+            // Deactivate the current gate
+            currentGate->isActive = false;
+            currentGate->gateColor = GATE_PASSIVE_COLOR;
 
-        // Check if game is over
-        if (currentCheckpoint == NUM_GATES - 1) {
-            // Game over
-            cout << "Game over!" << endl;
-            exit(0);
+            // Check if game is over
+            if (currentCheckpoint == checkpointOrder.size() - 1) {
+                // Game over
+                cout << "Game over!" << endl;
+                exit(0);
+            }
+
+            // Activate the next gate
+            currentGate = gates[checkpointOrder[++currentCheckpoint]];
+            currentGate->isActive = true;
+            currentGate->gateColor = GATE_ACTIVE_COLOR;
         }
-
-        // Activate the next gate
-        currentGate = gates[checkpointOrder[++currentCheckpoint]];
-        currentGate->isActive = true;
-        currentGate->gateColor = GATE_ACTIVE_COLOR;
     }
 }
 
 
 void Tema2::FrameEnd()
 {
+    DrawHUD();
     DrawCoordinateSystem(camera->GetViewMatrix(), projectionMatrix);
 }
 
 void Tema2::OnInputUpdate(float deltaTime, int mods)
 {
+    if (gameOver || startCountdown) {
+        return;
+    }
+
     // Create a temporary camera
     camera::Camera* tempCamera = new camera::Camera();
     tempCamera->forward = camera->forward;
@@ -249,11 +311,7 @@ void Tema2::OnInputUpdate(float deltaTime, int mods)
 
     // Ensure drone angle is within 0-360 degrees
     if (drone->droneAngle > 360.0f) drone->droneAngle -= 360.0f;
-    if (drone->droneAngle < 0.0f) drone->droneAngle += 360.0f;
-
-    // Clean up the temporary camera
-    // delete tempCamera;
-    // delete nextBoundingSphere;
+    if (drone->droneAngle < 0.0f) drone->droneAngle += 360.0f;    
 }
 
 
@@ -283,31 +341,7 @@ void Tema2::OnKeyRelease(int key, int mods)
 
 void Tema2::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
-    // if (window->MouseHold(GLFW_MOUSE_BUTTON_RIGHT))
-    // {
-    //     float mouseSensitivityX = 0.005f;
-    //     float mouseSensitivityY = 0.005f;
-
-    //     if (window->GetSpecialKeyState() == 0) {
-    //         renderCameraTarget = false;
-    //         // TODO(student): Rotate the camera in first-person mode around
-    //         // OX and OY using `deltaX` and `deltaY`. Use the sensitivity
-    //         // variables for setting up the rotation speed.
-    //         camera->RotateFirstPerson_OX(-deltaY * mouseSensitivityY);
-    //         camera->RotateFirstPerson_OY(-deltaX * mouseSensitivityX);
-
-    //     }
-
-    //     if (window->GetSpecialKeyState() & GLFW_MOD_CONTROL) {
-    //         renderCameraTarget = true;
-    //         // TODO(student): Rotate the camera in third-person mode around
-    //         // OX and OY using `deltaX` and `deltaY`. Use the sensitivity
-    //         // variables for setting up the rotation speed.
-    //         camera->RotateThirdPerson_OX(-deltaY * mouseSensitivityY);
-    //         camera->RotateThirdPerson_OY(-deltaX * mouseSensitivityX);
-
-    //     }
-    // }
+    // Add mouse move event
 }
 
 
@@ -319,34 +353,7 @@ void Tema2::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 
 void Tema2::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
-    // if (button == GLFW_MOUSE_BUTTON_RIGHT) {
-    //     // Snap the camera back to the drone
-    //     glm::vec3 dronePosition = drone->position;
-    //     float droneAngle = drone->droneAngle;
-
-    //     // Offset the camera relative to the drone
-    //     glm::vec3 offset = glm::vec3(0, 2, 0.2f); // Position the camera slightly behind and above the drone
-    //     glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), droneAngle, glm::vec3(0, 1, 0));
-    //     glm::vec3 rotatedOffset = glm::vec3(rotationMatrix * glm::vec4(offset, 1.0f));
-
-    //     // Calculate the new camera position
-    //     glm::vec3 cameraPosition = dronePosition + rotatedOffset;
-
-    //     // The camera should look at the drone's position
-    //     glm::vec3 cameraForward = glm::normalize(dronePosition - cameraPosition);
-
-    //     // Calculate the new right and up vectors
-    //     glm::vec3 cameraRight = glm::normalize(glm::cross(glm::vec3(0, 1, 0), cameraForward));
-    //     glm::vec3 cameraUp = glm::cross(cameraForward, cameraRight);
-
-    //     // Update the camera's position and orientation
-    //     camera->Set(cameraPosition, glm::vec3(0, 1, 0), glm::vec3(0, 1, 0));
-
-    //     // Explicitly update the camera's orientation vectors
-    //     camera->forward = cameraForward;
-    //     camera->right = cameraRight;
-    //     camera->up = cameraUp;
-    // }
+    // Add mouse button release event
 }
 
 
@@ -357,4 +364,41 @@ void Tema2::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
 
 void Tema2::OnWindowResize(int width, int height)
 {
+}
+
+void m1::Tema2::DrawHUD()
+{
+    const float kTopY = 10.f;
+    const float kRowHeight = window->GetResolution().y * 0.04f;
+
+    int rowIndex = 0;
+    std::string polygonModeText = "";
+
+    if (polygonMode == GL_LINE)
+    {
+        polygonModeText = "wireframe";
+    }
+    if (polygonMode == GL_FILL)
+    {
+        polygonModeText = "solid";
+    }
+    if (polygonMode == GL_POINT)
+    {
+        polygonModeText = "points";
+    }
+
+    // Get timer string
+    std::string timerString = std::to_string(timerMinutes) + ":" + std::to_string(timerSeconds1) + std::to_string(timerSeconds2);
+
+    if (gameOver) {
+        textRenderer->RenderText("Game over!", window->GetResolution().x * 0.04f, kTopY + kRowHeight * 2, 1.0f, glm::vec3(1, 1, 1));
+        return;
+    }
+
+    if (startCountdown) {
+        textRenderer->RenderText("Starting in " + std::to_string(countdown) + " seconds", window->GetResolution().x * 0.01f, kTopY + kRowHeight, 1.0f, glm::vec3(1, 1, 1));
+        return;
+    }
+
+    textRenderer->RenderText(timerString, window->GetResolution().x * 0.04f, kTopY + kRowHeight, 1.0f, glm::vec3(1, 1, 1));
 }
