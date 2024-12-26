@@ -19,6 +19,17 @@ namespace m1
 {
     const glm::vec3 skyBlue = glm::vec3(0.612, 0.800, 0.925);
 
+    struct ViewportSpace
+    {
+        ViewportSpace() : x(0), y(0), width(1), height(1) {}
+        ViewportSpace(int x, int y, int width, int height)
+            : x(x), y(y), width(width), height(height) {}
+        int x;
+        int y;
+        int width;
+        int height;
+    };
+
     class Tema2 : public gfxc::SimpleScene
     {
     public:
@@ -41,10 +52,15 @@ namespace m1
         void OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY) override;
         void OnWindowResize(int width, int height) override;
 
+        void DrawScene(camera::Camera *camera, float deltaTimeSeconds);
+        void SetViewportArea(const ViewportSpace & viewSpace, glm::vec3 colorColor, bool clear);
+
         // Draw the heads-up display
         void DrawHUD();
 
     protected:
+        ViewportSpace viewSpace;
+
         float cx{}, cy{};
         glm::mat3 modelMatrix{};
         float translateX{}, translateY{};
@@ -64,6 +80,7 @@ namespace m1
 
         // Camera attributes
         camera::Camera *camera;
+        camera::Camera *miniMapCamera;
         glm::mat4 projectionMatrix = glm::perspective(fov, window->props.aspectRatio, zNear, zFar);
         bool renderCameraTarget;
 
@@ -85,13 +102,9 @@ namespace m1
         // Draw primitives mode
         GLenum polygonMode;
 
-        // Colors
-        const glm::vec3 kTextColor = NormalizedRGB(166, 172, 205);
-        const glm::vec3 kBackgroundColor = NormalizedRGB(41, 45, 62);
-
         // Timer
         float nanoSecondsPassed = 0;
-        int timerMinutes = 1;
+        int timerMinutes = 2;
         int timerSeconds1 = 0;
         int timerSeconds2 = 0;
         
