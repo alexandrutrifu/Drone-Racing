@@ -109,15 +109,21 @@ void gates::Gate::CreateGate(const char *name, const glm::vec3 &corner, float bi
     this->mesh = Gate::CreateMesh(name, vertices, indices);
 
     // Create bounding box
-    glm::vec2 xBound = glm::vec2(corner.x, corner.x + bigRadius);
-    glm::vec2 yBound = glm::vec2(corner.y, corner.y + bigRadius);
-    glm::vec2 zBound = glm::vec2(corner.z - 0.3, corner.z);
+    // glm::vec2 xBound = glm::vec2(corner.x, corner.x + bigRadius);
+    // glm::vec2 yBound = glm::vec2(corner.y, corner.y + bigRadius);
+    // glm::vec2 zBound = glm::vec2(corner.z - 0.3, corner.z);
 
-    this->boundingBox = new obstacles::BoundingBox();
+    // this->boundingBox = new obstacles::BoundingBox();
 
-    this->boundingBox->xLimits = xBound;
-    this->boundingBox->yLimits = yBound;
-    this->boundingBox->zLimits = zBound;
+    // this->boundingBox->xLimits = xBound;
+    // this->boundingBox->yLimits = yBound;
+    // this->boundingBox->zLimits = zBound;
+
+    // Create bounding sphere
+    this->boundingSphere = new obstacles::BoundingSphere();
+
+    this->boundingSphere->center = corner;
+    this->boundingSphere->radius = bigRadius;
 }
 
 void Gate::RenderGate(Shader *shader, camera::Camera *camera, const glm::mat4 &projectionMatrix)
@@ -138,16 +144,10 @@ void Gate::RenderGate(Shader *shader, camera::Camera *camera, const glm::mat4 &p
         this->RenderObject(shader, modelMatrix, camera, projectionMatrix);
     }
 
-    // Update the gate's position
+    // Update the gate's bounding sphere
     {
-        this->boundingBox->xLimits.x = this->position.x - this->radius;
-        this->boundingBox->xLimits.y = this->position.x + this->radius;
-
-        this->boundingBox->yLimits.x = this->position.y - this->radius;
-        this->boundingBox->yLimits.y = this->position.y + this->radius;
-
-        this->boundingBox->zLimits.x = this->position.z - 0.3f;
-        this->boundingBox->zLimits.y = this->position.z + 0.3f;
+        this->boundingSphere->center = this->position;
+        this->boundingSphere->radius = this->radius;
     }
 }
 
@@ -191,17 +191,21 @@ void gates::Gate::setPosition(const glm::vec3 &position, float radius)
     this->position = position;
 
     // Update bounding box position
-    this->boundingBox->xLimits.x = this->position.x - radius;
-    this->boundingBox->xLimits.y = this->position.x + radius;
+    // this->boundingBox->xLimits.x = this->position.x - radius;
+    // this->boundingBox->xLimits.y = this->position.x + radius;
 
-    this->boundingBox->yLimits.x = this->position.y;
-    this->boundingBox->yLimits.y = this->position.y + radius;
+    // this->boundingBox->yLimits.x = this->position.y;
+    // this->boundingBox->yLimits.y = this->position.y + radius;
 
-    this->boundingBox->zLimits.x = this->position.z - 0.3f;
-    this->boundingBox->zLimits.y = this->position.z;
+    // this->boundingBox->zLimits.x = this->position.z - 0.3f;
+    // this->boundingBox->zLimits.y = this->position.z;
+
+    // Update bounding sphere position
+    this->boundingSphere->center = this->position;
+    this->boundingSphere->radius = radius;
 }
 
-vector<Gate *> gates::Gate::generateGates()
+vector<Gate *> gates::Gate::generateGates(vector<trees::Tree *> forest)
 {
     vector<Gate *> gates{};
 
@@ -213,19 +217,46 @@ vector<Gate *> gates::Gate::generateGates()
 
         gate->CreateGate("gate", glm::vec3(0, 0, 0), radius);
 
-        // Randomize the gate position
-        float xPos = rand() % (int)(1.5f * terrain::terrainSize) - terrain::terrainSize;
-        float yPos = rand() % 7 + (2 * radius);
-        float zPos = rand() % (int)(1.5f * terrain::terrainSize) - terrain::terrainSize;
-        
-        gate->setPosition(glm::vec3(xPos, yPos, zPos), radius);
-        gate->radius = radius;
-        gate->gateAngle = rand() % 180;
+        // Try to avoid collisions with trees
+        while (true) {
+            // Randomize the gate position
+            float spacing = 2 * radius;
+            float xPos = rand() % (int)(1.5f * terrain::terrainSize - spacing) - (terrain::terrainSize - spacing);
+            float yPos = rand() % 7 + (2 * radius);
+            float zPos = rand() % (int)(1.5f * terrain::terrainSize - spacing) - (terrain::terrainSize - spacing);
+            
+            gate->setPosition(glm::vec3(xPos, yPos, zPos), radius);
+            gate->radius = radius;
+            gate->gateAngle = rand() % 180;
+
+            bool collides = false;
+
+            // Check if the gate collides with any tree
+            for (auto &tree : forest) {
+                if (tree->collidesWithSphere(gate->boundingSphere, tree->boundingBox)) {
+                    collides = true;
+                }
+            }
+
+            // Check if the gate collides with any other gate
+            for (auto &otherGate : gates) {
+                if (gate->overlapsWith(otherGate->boundingSphere)) {
+                    collides = true;
+                }
+            }
+
+            if (!collides) {
+                break;
+            }
+        }
 
         gates.push_back(gate);
+    }
 
-        // Print the gate's position and bounding box
+    // Print the gate's position and bounding sphere
+    for (auto &gate : gates) {
         cout << "Gate position: " << gate->position.x << " " << gate->position.y << " " << gate->position.z << endl;
+        cout << "Gate bounding sphere: " << gate->boundingSphere->center.x << " " << gate->boundingSphere->center.y << " " << gate->boundingSphere->center.z << " " << gate->boundingSphere->radius << endl;
     }
 
     return gates;

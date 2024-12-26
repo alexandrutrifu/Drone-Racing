@@ -14,8 +14,8 @@ void Tema2::Init()
     renderCameraTarget = false;
 
     camera = new camera::Camera();
-    camera->Set(glm::vec3(0, 2, 0.2), glm::vec3(0, 2, 0), glm::vec3(0, 1, 0));
-    camera->distanceToTarget = 2;
+    camera->Set(glm::vec3(0, 2, 3), glm::vec3(0, 2, 0), glm::vec3(0, 1, 0));
+    camera->distanceToTarget = 3;
 
     glm::vec3 corner = glm::vec3(0, 0, 0);
 
@@ -37,6 +37,16 @@ void Tema2::Init()
         drone->CreateDrone("drone", corner, 1);
 
         this->drone->position = glm::vec3(0, 1, 0);
+        this->drone->droneAngle = 135;
+
+        // Update camera vectors
+        camera->forward = glm::normalize(glm::vec3(
+            sin(drone->droneAngle),
+            0,
+            cos(drone->droneAngle))
+        );
+
+        camera->right = glm::normalize(glm::cross(camera->forward, camera->up));
     }
 
     // Create the tree meshes
@@ -46,7 +56,7 @@ void Tema2::Init()
 
     // Create gates
     {
-        gates = gates::Gate::generateGates();
+        gates = gates::Gate::generateGates(forest);
 
         // Checkpoint order
         for (int i = 0; i < gates.size(); i++) {
@@ -166,152 +176,84 @@ void Tema2::FrameEnd()
 
 void Tema2::OnInputUpdate(float deltaTime, int mods)
 {
-   // move the camera only if MOUSE_RIGHT button is pressed
-    if (window->MouseHold(GLFW_MOUSE_BUTTON_RIGHT))
-    {
-        // float cameraSpeed = 6.0f;
+    // Create a temporary camera
+    camera::Camera* tempCamera = new camera::Camera();
+    tempCamera->forward = camera->forward;
+    tempCamera->right = camera->right;
+    tempCamera->up = camera->up;
+    tempCamera->position = camera->position;
 
-        // if (window->KeyHold(GLFW_KEY_W)) {
-        //     // TODO(student): Translate the camera forward
-        //     camera->MoveForward(cameraSpeed * deltaTime);
-        // }
+    glm::vec3 nextPosition = drone->position;
 
-        // if (window->KeyHold(GLFW_KEY_A)) {
-        //     // TODO(student): Translate the camera to the left
-        //     camera->TranslateRight(-cameraSpeed * deltaTime);
-
-        // }
-
-        // if (window->KeyHold(GLFW_KEY_S)) {
-        //     // TODO(student): Translate the camera backward
-        //     camera->MoveForward(-cameraSpeed * deltaTime);
-
-        // }
-
-        // if (window->KeyHold(GLFW_KEY_D)) {
-        //     // TODO(student): Translate the camera to the right
-        //     camera->TranslateRight(cameraSpeed * deltaTime);
-
-        // }
-
-        // if (window->KeyHold(GLFW_KEY_Q)) {
-        //     // TODO(student): Translate the camera downward
-        //     camera->TranslateUpward(-cameraSpeed * deltaTime);
-
-        // }
-
-        // if (window->KeyHold(GLFW_KEY_E)) {
-        //     // TODO(student): Translate the camera upward
-        //     camera->TranslateUpward(cameraSpeed * deltaTime);
-
-        // }
-
-        // if (window->KeyHold(GLFW_KEY_LEFT)) {
-        //     fov -= cameraSpeed * deltaTime;
-        //     projectionMatrix = glm::perspective(fov, window->props.aspectRatio, zNear, zFar);
-
-        // }
-
-        // if (window->KeyHold(GLFW_KEY_RIGHT)) {
-        //     fov += cameraSpeed * deltaTime;
-        //     projectionMatrix = glm::perspective(fov, window->props.aspectRatio, zNear, zFar);
-        // }
-
-        // if (window->KeyHold(GLFW_KEY_K)) {
-        //     bottom -= cameraSpeed * deltaTime;
-        //     top += cameraSpeed * deltaTime;
-        //     left -= cameraSpeed * deltaTime;
-        //     right += cameraSpeed * deltaTime;
-        //     projectionMatrix = glm::ortho(left, right, bottom, top, zNear, zFar);
-        // }
-        
-        // if (window->KeyHold(GLFW_KEY_L)) {
-        //     left += cameraSpeed * deltaTime;
-        //     right -= cameraSpeed * deltaTime;
-        //     bottom += cameraSpeed * deltaTime;
-        //     top -= cameraSpeed * deltaTime;
-        //     projectionMatrix = glm::ortho(left, right, bottom, top, zNear, zFar);
-        // }
-    } else {
-        glm::vec3 nextPosition = drone->position; // Start with the current position
-        glm::vec3 cameraNextPosition = camera->position;
-
-        // Predict the next position
-        // Calculate drone's forward direction based on rotation
-        glm::vec3 forwardDir = glm::vec3(
-            sin(drone->droneAngle),
-            0,
-            cos(drone->droneAngle)
-        );
-
-        // Forward and backward movement (W/S)
-        if (window->KeyHold(GLFW_KEY_W)) {
-            nextPosition += forwardDir * deltaTime * DRONE_SPEED;
-            cameraNextPosition += forwardDir * deltaTime * DRONE_SPEED;
-        }
-        if (window->KeyHold(GLFW_KEY_S)) {
-            nextPosition -= forwardDir * deltaTime * DRONE_SPEED;
-            cameraNextPosition -= forwardDir * deltaTime * DRONE_SPEED;
-        }
-
-        // Left and right strafe movement (A/D)
-        if (window->KeyHold(GLFW_KEY_A)) {
-            nextPosition -= glm::cross(forwardDir, glm::vec3(0, 1, 0)) * deltaTime * DRONE_SPEED;
-            cameraNextPosition -= glm::cross(forwardDir, glm::vec3(0, 1, 0)) * deltaTime * DRONE_SPEED;
-        }
-        if (window->KeyHold(GLFW_KEY_D)) {
-            nextPosition += glm::cross(forwardDir, glm::vec3(0, 1, 0)) * deltaTime * DRONE_SPEED;
-            cameraNextPosition += glm::cross(forwardDir, glm::vec3(0, 1, 0)) * deltaTime * DRONE_SPEED;
-        }
-        if (window->KeyHold(GLFW_KEY_Q)) {
-            cameraNextPosition -= glm::normalize(camera->up) * deltaTime * DRONE_SPEED;
-            nextPosition.y -= deltaTime * DRONE_SPEED;
-        }
-        if (window->KeyHold(GLFW_KEY_E)) {
-            cameraNextPosition += glm::normalize(camera->up) * deltaTime * DRONE_SPEED;
-            nextPosition.y += deltaTime * DRONE_SPEED;
-        }
-        if (window->KeyHold(GLFW_KEY_LEFT)) {
-            drone->droneAngle += deltaTime * DRONE_ROTATION_SPEED;
-            camera->RotateThirdPerson_OY(deltaTime * DRONE_ROTATION_SPEED);
-        }
-
-        if (window->KeyHold(GLFW_KEY_RIGHT)) {
-            drone->droneAngle -= deltaTime * DRONE_ROTATION_SPEED;
-            camera->RotateThirdPerson_OY(-deltaTime * DRONE_ROTATION_SPEED);
-        }
-
-        // Ensure the angle is within a valid range (optional, for better numerical stability)
-        if (drone->droneAngle > 360.0f) drone->droneAngle -= 360.0f;
-        if (drone->droneAngle < 0.0f) drone->droneAngle += 360.0f;
-
-        // Form new bounding sphere for next position
-        obstacles::BoundingSphere *nextBoundingSphere = new obstacles::BoundingSphere();
-
-        nextBoundingSphere->center = nextPosition;
-        nextBoundingSphere->radius = BOUNDING_SPHERE_RADIUS;
-
-        // Update position only if no collision occurs
-        if (nextPosition.y > 0.2f
-            && !drone->forestCollisions(nextBoundingSphere, forest)
-            && !drone->gatesCollisions(nextBoundingSphere, gates)) {
-            // Move camera to the new position
-            camera->position = cameraNextPosition;
-
-            camera->forward = glm::normalize(forwardDir);
-            camera->right = glm::cross(camera->forward, camera->up);
-
-            drone->position = nextPosition;
-            drone->boundingSphere->center = nextPosition; // Update the bounding sphere position
-        } else {
-            // Print a message if a collision occurs
-            cout << "Collision detected!" << endl;
-        }
-
-        if (drone->gatesCollisions(nextBoundingSphere, gates)) {
-            cout << "Collision with gate detected!" << endl;
-        }
+    // Forward and backward movement (W/S)
+    if (window->KeyHold(GLFW_KEY_W)) {
+        tempCamera->TranslateForward(deltaTime * DRONE_SPEED);
+        nextPosition += tempCamera->forward * deltaTime * DRONE_SPEED;
     }
+    if (window->KeyHold(GLFW_KEY_S)) {
+        tempCamera->TranslateForward(-deltaTime * DRONE_SPEED);
+        nextPosition -= tempCamera->forward * deltaTime * DRONE_SPEED;
+    }
+
+    // Left and right strafing (A/D)
+    if (window->KeyHold(GLFW_KEY_A)) {
+        tempCamera->TranslateRight(-deltaTime * DRONE_SPEED);
+        nextPosition -= tempCamera->right * deltaTime * DRONE_SPEED;
+    }
+    if (window->KeyHold(GLFW_KEY_D)) {
+        tempCamera->TranslateRight(deltaTime * DRONE_SPEED);
+        nextPosition += tempCamera->right * deltaTime * DRONE_SPEED;
+    }
+
+    // Upward and downward movement (Q/E)
+    if (window->KeyHold(GLFW_KEY_Q)) {
+        tempCamera->TranslateUpward(-deltaTime * DRONE_SPEED);
+        nextPosition -= tempCamera->up * deltaTime * DRONE_SPEED;
+    }
+    if (window->KeyHold(GLFW_KEY_E)) {
+        tempCamera->TranslateUpward(deltaTime * DRONE_SPEED);
+        nextPosition += tempCamera->up * deltaTime * DRONE_SPEED;
+    }
+
+    // Handle drone rotation (LEFT/RIGHT arrow keys)
+    if (window->KeyHold(GLFW_KEY_LEFT)) {
+        drone->droneAngle += deltaTime * DRONE_ROTATION_SPEED;
+        tempCamera->RotateThirdPerson_OY(deltaTime * DRONE_ROTATION_SPEED);
+    }
+    if (window->KeyHold(GLFW_KEY_RIGHT)) {
+        drone->droneAngle -= deltaTime * DRONE_ROTATION_SPEED;
+        tempCamera->RotateThirdPerson_OY(-deltaTime * DRONE_ROTATION_SPEED);
+    }
+
+    // Check collisions before applying changes
+    obstacles::BoundingSphere* nextBoundingSphere = new obstacles::BoundingSphere();
+
+    nextBoundingSphere->center = nextPosition;
+    nextBoundingSphere->radius = BOUNDING_SPHERE_RADIUS;
+
+    if (nextPosition.y > 0.2f
+        && !drone->forestCollisions(nextBoundingSphere, forest)
+        && !drone->gatesCollisions(nextBoundingSphere, gates)) {
+        // Apply the temporary camera's values to the main camera
+        camera->position = tempCamera->position;
+        camera->forward = tempCamera->forward;
+        camera->right = tempCamera->right;
+        camera->up = tempCamera->up;
+
+        // Update the drone's position
+        drone->position = nextPosition;
+        drone->boundingSphere->center = nextPosition;
+    } else {
+        std::cout << "Collision detected!" << std::endl;
+    }
+
+    // Ensure drone angle is within 0-360 degrees
+    if (drone->droneAngle > 360.0f) drone->droneAngle -= 360.0f;
+    if (drone->droneAngle < 0.0f) drone->droneAngle += 360.0f;
+
+    // Clean up the temporary camera
+    // delete tempCamera;
+    // delete nextBoundingSphere;
 }
 
 

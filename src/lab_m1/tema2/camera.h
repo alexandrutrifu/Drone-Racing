@@ -11,11 +11,11 @@ namespace camera
      public:
         Camera()
         {
-            position    = glm::vec3(0, 1, 2);
+            position    = glm::vec3(0, 2, 3);
             forward     = glm::vec3(0, 0, -1);
             up          = glm::vec3(0, 1, 0);
             right       = glm::vec3(1, 0, 0);
-            distanceToTarget = 0;
+            distanceToTarget = 3;
         }
 
         Camera(const glm::vec3 &position, const glm::vec3 &center, const glm::vec3 &up)

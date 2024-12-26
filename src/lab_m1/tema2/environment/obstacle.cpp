@@ -6,3 +6,11 @@ bool obstacles::Obstacle::overlapsWith(BoundingBox *boundingBox)
         this->boundingBox->yLimits.x <= boundingBox->yLimits.y && this->boundingBox->yLimits.y >= boundingBox->yLimits.x &&
         this->boundingBox->zLimits.x <= boundingBox->zLimits.y && this->boundingBox->zLimits.y >= boundingBox->zLimits.x;
 }
+
+bool obstacles::Obstacle::overlapsWith(BoundingSphere *boundingSphere)
+{
+    // Collision between two spheres
+    const float distance = glm::distance(this->boundingSphere->center, boundingSphere->center);
+
+    return distance < this->boundingSphere->radius + boundingSphere->radius;
+}

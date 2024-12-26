@@ -99,7 +99,7 @@ void trees::Tree::setPosition(const glm::vec3 &position)
     this->boundingBox->zLimits.y = this->position.z + BIG_CONE_RADIUS * this->scaleFactor;
 }
 
-bool trees::Tree::collidesWithDrone(BoundingSphere *sphere, obstacles::BoundingBox *box)
+bool trees::Tree::collidesWithSphere(BoundingSphere *sphere, obstacles::BoundingBox *box)
 {
     const float x = std::max(box->xLimits.x, std::min(sphere->center.x, box->xLimits.y));
     const float y = std::max(box->yLimits.x, std::min(sphere->center.y, box->yLimits.y));
@@ -144,7 +144,7 @@ vector<Tree *> trees::Tree::generateForest()
             sphere->center = glm::vec3(0, 0, 0);
             sphere->radius = BOUNDING_SPHERE_RADIUS;    // Initial position at spawn
 
-            return tree->collidesWithDrone(sphere, tree->boundingBox);
+            return tree->collidesWithSphere(sphere, tree->boundingBox);
         };
 
         while (attempts < maxAttempts && (collidesWithDrone() || any_of(forest.begin(), forest.end(), [&](Tree *t) {

@@ -11,8 +11,9 @@
 #include "../../camera.h"
 #include "../obstacle.h"
 #include "../terrain/terrain.h"
+#include "../trees/tree.h"
 
-#define NUM_GATES (terrain::terrainSize / 5)
+#define NUM_GATES ((int) (terrain::terrainSize / 4))
 #define GATE_RADIUS 2
 #define GATE_PASSIVE_COLOR glm::vec3(0.5, 0.5, 0.5)
 #define GATE_ACTIVE_COLOR glm::vec3(0, 1, 0)
@@ -34,7 +35,7 @@ namespace gates
 
             void setPosition(const glm::vec3 &position, float radius);
 
-            static vector<Gate *> generateGates();
+            static vector<Gate *> generateGates(vector<trees::Tree *> forest);
 
             glm::vec3 position{};
             float radius{};

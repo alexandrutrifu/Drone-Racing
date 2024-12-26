@@ -44,8 +44,10 @@ namespace obstacles
             ~Obstacle() override = default;
 
             bool overlapsWith(BoundingBox *boundingBox);
+            bool overlapsWith(BoundingSphere *boundingSphere);
 
             BoundingBox *boundingBox{};
+            BoundingSphere *boundingSphere{};
     };
 }
 

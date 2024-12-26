@@ -24,7 +24,7 @@ using namespace obstacles;
 #define LIMB_LENGTH 2.0f
 #define END_CUBE_LENGTH 0.08f
 
-#define DRONE_SPEED 10.0f
+#define DRONE_SPEED 15.0f
 #define DRONE_ROTATION_SPEED 3.0f
 
 namespace drones
@@ -53,7 +53,7 @@ namespace drones
 
             glm::vec3 position;
             float propellerAngle = 0;
-            float droneAngle = 135;
+            float droneAngle = 120;
 
             float scaleFactor = 1;
     };
